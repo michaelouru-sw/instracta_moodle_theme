@@ -11,7 +11,7 @@ A Boost child theme for Moodle 5.0 with an Instracta brand look, reading-first t
 ## What you get
 - **Reading clarity:** 17 px text, 1.7 line height, 68-character lines, Atkinson Hyperlegible and serif options, high contrast, reduced motion and focus mode. A Reading tools button lets every learner change these and their own layouts.
 - **Course layouts:** Classic, Reading, Timeline, Cards, Compact and One section at a time; four course headers (banner, split, minimal, none); four course card styles (outline, raised, cover, list); three course list views. Admins set the defaults on *Reading & courses*; learners can override them.
-- **Brand and style:** Instracta navy and orange by default (taken from the logo; change it under *Brand & style*), 8 palettes or your own colours, 4 bundled fonts (no external requests), corner style, depth, content width, glass / solid / transparent navbar, light and dark mode with a user switch.
+- **Brand and style:** Instracta navy and orange by default, 8 palettes or your own colours, 4 bundled fonts (no external requests), corner style, depth, content width, glass / solid / transparent navbar, light and dark mode with a user switch.
 - **Home page builder:** 20 section types, live preview (desktop, tablet, mobile), drag to reorder, undo/redo, autosaved draft, publish with notes, restore earlier versions, per-section background, spacing, audience and mobile/desktop visibility.
 - **Analytics:** KPIs with trend, activity and enrolment charts, activity types, hour × weekday heatmap, top courses, completion rates, CSV export. Needs the standard log store.
 - **Learner dashboard:** progress, streak and resume strip on *Dashboard*.
