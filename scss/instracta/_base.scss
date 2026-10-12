@@ -1,0 +1,521 @@
+// Global refinements of Boost / Bootstrap / Moodle core components.
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background: var(--instracta-bg);
+    color: var(--instracta-text);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+#page,
+#page.drawers {
+    background: transparent;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    letter-spacing: -.018em;
+    color: var(--instracta-heading);
+    font-weight: 700;
+    line-height: 1.22;
+    text-wrap: balance;
+}
+
+a {
+    color: var(--instracta-primary);
+    text-underline-offset: .2em;
+    text-decoration-thickness: 1px;
+
+    &:hover {
+        color: var(--instracta-primary-hover);
+    }
+}
+
+// Links inside reading text are always underlined, so they never rely on colour alone.
+.no-overflow a:not(.btn),
+.text_to_html a:not(.btn),
+.activity-description a:not(.btn),
+.forumpost .posting a:not(.btn) {
+    text-decoration: underline;
+    text-decoration-color: rgba(var(--instracta-primary-rgb), .4);
+
+    &:hover {
+        text-decoration-color: currentColor;
+    }
+}
+
+::selection {
+    background: rgba(var(--instracta-primary-rgb), .22);
+}
+
+:focus-visible {
+    outline: 3px solid var(--instracta-accent);
+    outline-offset: 2px;
+    border-radius: var(--instracta-r-sm);
+}
+
+// Buttons.
+.btn {
+    font-weight: 600;
+    letter-spacing: .005em;
+    transition: transform .18s var(--instracta-ease), box-shadow .18s var(--instracta-ease),
+        background-color .18s var(--instracta-ease), border-color .18s var(--instracta-ease), color .18s var(--instracta-ease);
+
+    &:focus-visible {
+        box-shadow: 0 0 0 .25rem var(--instracta-ring);
+    }
+}
+
+.btn-primary {
+    --bs-btn-color: var(--instracta-on-primary);
+    --bs-btn-hover-color: var(--instracta-on-primary);
+    --bs-btn-active-color: var(--instracta-on-primary);
+    --bs-btn-disabled-color: var(--instracta-on-primary);
+    --bs-btn-bg: var(--instracta-primary);
+    --bs-btn-border-color: var(--instracta-primary);
+    --bs-btn-hover-bg: var(--instracta-primary-hover);
+    --bs-btn-hover-border-color: var(--instracta-primary-hover);
+    --bs-btn-active-bg: var(--instracta-primary-hover);
+    --bs-btn-active-border-color: var(--instracta-primary-hover);
+    --bs-btn-disabled-bg: var(--instracta-primary);
+    --bs-btn-disabled-border-color: var(--instracta-primary);
+    box-shadow: none;
+
+    &:hover {
+        box-shadow: 0 6px 14px -8px rgba(var(--instracta-primary-rgb), .7);
+    }
+}
+
+.btn-secondary,
+.btn-outline-secondary {
+    --bs-btn-color: var(--instracta-text);
+    --bs-btn-bg: var(--instracta-surface);
+    --bs-btn-border-color: var(--instracta-border-strong);
+    --bs-btn-hover-color: var(--instracta-text);
+    --bs-btn-hover-bg: var(--instracta-surface-2);
+    --bs-btn-hover-border-color: var(--instracta-border-strong);
+    --bs-btn-active-color: var(--instracta-text);
+    --bs-btn-active-bg: var(--instracta-surface-2);
+    --bs-btn-active-border-color: var(--instracta-border-strong);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--instracta-primary);
+    --bs-btn-border-color: var(--instracta-primary);
+    --bs-btn-hover-color: var(--instracta-on-primary);
+    --bs-btn-active-color: var(--instracta-on-primary);
+    --bs-btn-hover-bg: var(--instracta-primary);
+    --bs-btn-hover-border-color: var(--instracta-primary);
+    --bs-btn-active-bg: var(--instracta-primary);
+    --bs-btn-active-border-color: var(--instracta-primary);
+}
+
+.btn-link {
+    --bs-btn-color: var(--instracta-primary);
+}
+
+// Forms.
+.form-control,
+.form-select,
+.custom-select {
+    border-color: var(--instracta-border-strong);
+    background-color: var(--instracta-surface);
+    color: var(--instracta-text);
+    border-radius: var(--instracta-r-md);
+    transition: border-color .15s, box-shadow .15s;
+
+    &:focus {
+        border-color: var(--instracta-primary);
+        box-shadow: 0 0 0 .25rem var(--instracta-ring);
+        background-color: var(--instracta-surface);
+        color: var(--instracta-text);
+    }
+}
+
+.form-check-input:checked {
+    background-color: var(--instracta-primary);
+    border-color: var(--instracta-primary);
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 .25rem var(--instracta-ring);
+    border-color: var(--instracta-primary);
+}
+
+.input-group-text {
+    background: var(--instracta-surface-2);
+    border-color: var(--instracta-border-strong);
+    color: var(--instracta-text-muted);
+}
+
+// Cards and containers.
+.card {
+    --bs-card-bg: var(--instracta-surface);
+    --bs-card-border-color: var(--instracta-border);
+    --bs-card-border-radius: var(--instracta-r-lg);
+    --bs-card-inner-border-radius: calc(var(--instracta-r-lg) - 1px);
+    --bs-card-cap-bg: transparent;
+    background: var(--instracta-surface);
+    border-color: var(--instracta-border);
+    border-radius: var(--instracta-r-lg);
+    box-shadow: none;
+}
+
+.card-header {
+    font-weight: 600;
+    border-bottom-color: var(--instracta-border);
+}
+
+.card-footer {
+    border-top-color: var(--instracta-border);
+}
+
+.dashboard-card,
+.course-card,
+.card.course-card {
+    transition: transform .22s var(--instracta-ease), box-shadow .22s var(--instracta-ease);
+    overflow: hidden;
+
+    &:hover {
+        transform: translateY(-2px);
+        border-color: var(--instracta-border-strong);
+        box-shadow: var(--instracta-shadow-md);
+    }
+
+    .card-img-top,
+    .course-image {
+        transition: transform .5s var(--instracta-ease);
+    }
+
+    &:hover .card-img-top {
+        transform: scale(1.03);
+    }
+}
+
+.block,
+.block.card {
+    border-radius: var(--instracta-r-lg);
+    overflow: hidden;
+
+    .card-title,
+    .h5 {
+        font-size: 1rem;
+        font-weight: 700;
+    }
+}
+
+// Region main: a clean reading surface on content pages.
+#region-main {
+    border-radius: var(--instracta-r-lg);
+    background: transparent;
+}
+
+.secondary-navigation .moremenu,
+.secondary-navigation nav,
+.secondary-navigation .nav-tabs {
+    background: transparent;
+}
+
+body.limitedwidth #page.drawers .main-inner,
+.limitedwidth #topofscroll {
+    max-width: 1400px;
+}
+
+// Data-heavy pages use the full container instead of Moodle's 830px reading column.
+body.path-calendar,
+body.path-grade,
+body.path-report,
+body.path-user,
+body.path-badges,
+body.path-blocks,
+body.path-mod-data {
+    #page.drawers .main-inner,
+    #topofscroll.main-inner,
+    #topofscroll {
+        max-width: var(--instracta-container, 1280px) !important;
+    }
+}
+
+// Page header.
+#page-header {
+    .page-context-header h1,
+    .page-header-headings h1 {
+        font-weight: 800;
+        font-size: clamp(1.5rem, 2.2vw, 2rem);
+    }
+}
+
+.breadcrumb {
+    --bs-breadcrumb-divider-color: var(--instracta-text-muted);
+    font-size: .8125rem;
+
+    a {
+        color: var(--instracta-text-muted);
+        font-weight: 500;
+
+        &:hover {
+            color: var(--instracta-primary);
+        }
+    }
+}
+
+// Secondary navigation: underlined tabs.
+.secondary-navigation {
+    border-bottom: 1px solid var(--instracta-border);
+
+    .moremenu,
+    nav {
+        border-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .nav-tabs {
+        margin: 0 !important;
+    }
+
+    .nav-tabs {
+        border-bottom: 0;
+
+        .nav-link {
+            border: 0;
+            border-bottom: 2px solid transparent;
+            color: var(--instracta-text-muted);
+            font-weight: 600;
+            padding: .85rem 1rem;
+            background: transparent;
+            transition: color .15s, border-color .15s;
+
+            &:hover {
+                color: var(--instracta-text);
+                border-bottom-color: var(--instracta-border-strong);
+            }
+
+            &.active {
+                color: var(--instracta-primary);
+                border-bottom-color: var(--instracta-primary);
+                background: transparent;
+            }
+        }
+    }
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    background: var(--instracta-primary);
+    color: var(--instracta-on-primary);
+}
+
+// Tables.
+.table,
+.generaltable {
+    --bs-table-bg: transparent;
+    --bs-table-border-color: var(--instracta-border);
+    color: var(--instracta-text);
+
+    th {
+        font-size: .75rem;
+        text-transform: uppercase;
+        letter-spacing: .06em;
+        color: var(--instracta-text-muted);
+        font-weight: 700;
+    }
+
+    tbody tr {
+        transition: background-color .12s;
+    }
+
+    tbody tr:hover > * {
+        background-color: rgba(var(--instracta-primary-rgb), .045);
+    }
+}
+
+// Dropdowns, popovers and modals.
+.dropdown-menu {
+    border-color: var(--instracta-border);
+    border-radius: var(--instracta-r-lg);
+    box-shadow: var(--instracta-shadow-lg);
+    padding: .4rem;
+    background: var(--instracta-surface);
+    color: var(--instracta-text);
+
+    .dropdown-item {
+        border-radius: var(--instracta-r-sm);
+        color: var(--instracta-text);
+        padding: .5rem .75rem;
+
+        &:hover,
+        &:focus {
+            background: var(--instracta-primary-soft);
+            color: var(--instracta-primary-hover);
+        }
+
+        &.active,
+        &:active {
+            background: var(--instracta-primary);
+            color: var(--instracta-on-primary);
+        }
+    }
+
+    .dropdown-divider {
+        border-color: var(--instracta-border);
+    }
+}
+
+.modal-content {
+    border: 1px solid var(--instracta-border);
+    border-radius: var(--instracta-r-xl);
+    box-shadow: var(--instracta-shadow-lg);
+    background: var(--instracta-surface);
+    color: var(--instracta-text);
+}
+
+.modal-header,
+.modal-footer {
+    border-color: var(--instracta-border);
+}
+
+.popover,
+.tooltip-inner {
+    border-radius: var(--instracta-r-md);
+}
+
+.popover {
+    background: var(--instracta-surface);
+    border-color: var(--instracta-border);
+    box-shadow: var(--instracta-shadow-md);
+}
+
+// Alerts, badges.
+.alert {
+    border-radius: var(--instracta-r-lg);
+    border-width: 0 0 0 4px;
+}
+
+.badge {
+    font-weight: 600;
+    border-radius: 999px;
+    padding: .38em .7em;
+}
+
+.progress {
+    height: .6rem;
+    border-radius: 999px;
+    background: var(--instracta-surface-2);
+
+    .progress-bar {
+        background: var(--instracta-accent);
+        border-radius: 999px;
+    }
+}
+
+.list-group-item {
+    background: var(--instracta-surface);
+    border-color: var(--instracta-border);
+    color: var(--instracta-text);
+}
+
+.page-link {
+    color: var(--instracta-primary);
+}
+
+.page-item.active .page-link {
+    background: var(--instracta-primary);
+    border-color: var(--instracta-primary);
+    color: var(--instracta-on-primary);
+}
+
+// Course page: sections and activities as soft cards.
+.course-content {
+    .section-item,
+    ul.topics > li.section,
+    ul.weeks > li.section,
+    .course-section {
+        border-radius: var(--instracta-r-lg);
+    }
+
+    .course-section.card,
+    .section-item.card {
+        margin-bottom: 1rem;
+    }
+
+    .activity-item {
+        border-radius: var(--instracta-r-md);
+        transition: background-color .15s;
+
+        &:hover {
+            background: rgba(var(--instracta-primary-rgb), .035);
+        }
+    }
+}
+
+.course-section-header .sectionname a,
+.sectionname a {
+    color: var(--instracta-text);
+    font-weight: 700;
+}
+
+// Drawers (course index, blocks).
+.drawer {
+    border-color: var(--instracta-border);
+    background: var(--instracta-surface);
+    box-shadow: var(--instracta-shadow-sm);
+}
+
+.drawer-toggler .btn {
+    background: var(--instracta-surface);
+    border: 1px solid var(--instracta-border);
+    box-shadow: var(--instracta-shadow-md);
+}
+
+.courseindex .courseindex-item.pageitem,
+.courseindex .courseindex-section.current > .courseindex-item {
+    background: var(--instracta-primary-soft);
+    border-radius: var(--instracta-r-sm);
+
+    .courseindex-link,
+    .courseindex-chevron,
+    .courseindex-sectionname,
+    .courseindex-sectionname a {
+        color: var(--instracta-primary) !important;
+        font-weight: 600;
+    }
+}
+
+// Avatars.
+.userpicture,
+.rounded-circle.userpicture {
+    box-shadow: 0 0 0 2px var(--instracta-surface), 0 0 0 3px var(--instracta-border);
+}
+
+hr {
+    border-color: var(--instracta-border-strong);
+}
+
+// Scrollbar polish.
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--instracta-border-strong) transparent;
+}
+
+// Course card menu button follows the colour mode.
+.course-card .coursemenubtn,
+.course-card .btn-icon,
+.course-card .dropdown > .btn {
+    background: var(--instracta-surface);
+    color: var(--instracta-text);
+    border-radius: 999px;
+}
+
+.course-overview-wrapper,
+[data-region="courses-view"] {
+    background: transparent;
+}

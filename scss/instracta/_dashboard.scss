@@ -1,0 +1,445 @@
+// Dashboard: the learner hub above Moodle's own blocks.
+
+body.instracta-hub-page #page-header .page-context-header {
+    display: none !important;
+}
+
+.instracta-hub {
+    display: grid;
+    gap: 1.5rem;
+    margin: .25rem 0 2rem;
+}
+
+.hub-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+
+    .hub-date {
+        margin: 0 0 .25rem;
+        font-size: .8125rem;
+        font-weight: 600;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+        color: var(--instracta-text-muted);
+    }
+
+    .hub-title {
+        margin: 0;
+        font-size: clamp(1.6rem, 3vw, 2.25rem);
+        font-weight: 800;
+        letter-spacing: -.025em;
+    }
+
+    .hub-sub {
+        margin: .35rem 0 0;
+        color: var(--instracta-text-muted);
+    }
+}
+
+.hub-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.hub-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .5rem .95rem;
+    border: 1px solid var(--instracta-border);
+    border-radius: 999px;
+    background: var(--instracta-surface);
+    color: var(--instracta-text);
+    font-size: .875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color .15s, background-color .15s, color .15s;
+
+    i {
+        color: var(--instracta-primary);
+    }
+
+    &:hover {
+        border-color: var(--instracta-primary);
+        background: var(--instracta-primary-soft);
+        color: var(--instracta-primary-hover);
+    }
+}
+
+.hub-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 22rem;
+    gap: 1.5rem;
+    align-items: start;
+
+    @media (max-width: 1199.98px) {
+        grid-template-columns: minmax(0, 1fr) 19rem;
+    }
+
+    @media (max-width: 991.98px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.hub-main,
+.hub-side {
+    display: grid;
+    gap: 1.5rem;
+    min-width: 0;
+}
+
+.hub-eyebrow {
+    margin: 0;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--instracta-accent) 55%, #000);
+}
+
+:root[data-instracta-theme="dark"] .hub-eyebrow {
+    color: var(--instracta-accent);
+}
+
+.hub-h {
+    margin: 0 0 .9rem;
+    font-size: 1.0625rem;
+    font-weight: 700;
+}
+
+.hub-note {
+    margin: .75rem 0 0;
+    font-size: .8125rem;
+    color: var(--instracta-text-muted);
+}
+
+// Featured: the course to continue.
+.hub-feature {
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    overflow: hidden;
+    border: 1px solid var(--instracta-border);
+    border-radius: var(--instracta-r-xl);
+    background: var(--instracta-surface);
+    box-shadow: var(--instracta-shadow-sm);
+
+    &__media {
+        min-height: 13rem;
+        background-color: var(--instracta-dark-bg);
+        background-image: var(--instracta-gradient);
+        background-size: cover;
+        background-position: center;
+    }
+
+    &__body {
+        display: grid;
+        align-content: center;
+        gap: .85rem;
+        padding: clamp(1.25rem, 3vw, 2rem);
+    }
+
+    &__title {
+        margin: 0;
+        font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+        font-weight: 800;
+    }
+
+    &__cta {
+        justify-self: start;
+        display: inline-flex;
+        align-items: center;
+        gap: .6rem;
+        padding: .6rem 1.2rem;
+    }
+
+    &--empty {
+        grid-template-columns: 1fr;
+        background: var(--instracta-primary-softer);
+    }
+
+    @media (max-width: 575.98px) {
+        grid-template-columns: 1fr;
+
+        &__media {
+            min-height: 8rem;
+        }
+    }
+}
+
+.hub-meter {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    font-size: .875rem;
+    font-weight: 600;
+    color: var(--instracta-text-muted);
+
+    .progress {
+        flex: 1;
+        height: .5rem;
+    }
+
+    span {
+        white-space: nowrap;
+    }
+}
+
+// Courses in progress.
+.hub-courses {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1rem;
+}
+
+.hub-course {
+    display: grid;
+    grid-template-columns: 4.25rem minmax(0, 1fr);
+    gap: .9rem;
+    align-items: center;
+    padding: .8rem;
+    border: 1px solid var(--instracta-border);
+    border-radius: var(--instracta-r-lg);
+    background: var(--instracta-surface);
+    color: var(--instracta-text);
+    text-decoration: none;
+    transition: transform .2s var(--instracta-ease), box-shadow .2s var(--instracta-ease), border-color .2s;
+
+    &:hover {
+        transform: translateY(-2px);
+        border-color: var(--instracta-border-strong);
+        box-shadow: var(--instracta-shadow-md);
+        color: var(--instracta-text);
+    }
+
+    &__thumb {
+        width: 4.25rem;
+        height: 4.25rem;
+        border-radius: var(--instracta-r-md);
+        background-color: var(--instracta-dark-bg);
+        background-image: var(--instracta-gradient);
+        background-size: cover;
+        background-position: center;
+    }
+
+    &__body {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: .15rem .5rem;
+        align-items: center;
+        min-width: 0;
+    }
+
+    &__name {
+        grid-column: 1 / -1;
+        font-weight: 700;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    &__seen {
+        grid-column: 1 / -1;
+        font-size: .75rem;
+        color: var(--instracta-text-muted);
+    }
+
+    &__bar {
+        height: 5px;
+        margin-top: .4rem;
+        border-radius: 999px;
+        background: var(--instracta-border);
+        overflow: hidden;
+
+        span {
+            display: block;
+            height: 100%;
+            background: var(--instracta-accent);
+            border-radius: 999px;
+        }
+    }
+
+    &__pct {
+        margin-top: .4rem;
+        font-size: .75rem;
+        font-weight: 700;
+        color: var(--instracta-text-muted);
+    }
+}
+
+// Side column.
+.hub-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .75rem;
+}
+
+.hub-stat {
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--instracta-border);
+    border-radius: var(--instracta-r-lg);
+    background: var(--instracta-surface);
+
+    &__value {
+        font-size: 1.75rem;
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -.02em;
+        color: var(--instracta-heading);
+    }
+
+    &__label {
+        margin-top: .25rem;
+        font-size: .75rem;
+        font-weight: 600;
+        color: var(--instracta-text-muted);
+    }
+}
+
+.hub-card {
+    padding: 1.15rem 1.25rem;
+    border: 1px solid var(--instracta-border);
+    border-radius: var(--instracta-r-lg);
+    background: var(--instracta-surface);
+}
+
+.hub-week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: .5rem;
+    height: 6.5rem;
+
+    &__day {
+        display: grid;
+        grid-template-rows: 1fr auto;
+        gap: .4rem;
+        justify-items: center;
+        min-height: 0;
+    }
+
+    &__bar {
+        display: flex;
+        align-items: flex-end;
+        width: 100%;
+        max-width: 1.6rem;
+        height: 100%;
+        border-radius: 6px;
+        background: var(--instracta-surface-2);
+        overflow: hidden;
+
+        span {
+            width: 100%;
+            background: var(--instracta-border-strong);
+            border-radius: 6px;
+        }
+    }
+
+    &__day.is-active &__bar span {
+        background: var(--instracta-primary);
+    }
+
+    &__day.is-today &__bar span {
+        background: var(--instracta-accent);
+    }
+
+    &__label {
+        font-size: .6875rem;
+        font-weight: 600;
+        color: var(--instracta-text-muted);
+    }
+}
+
+.hub-due {
+    display: grid;
+    gap: .85rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &__item {
+        display: grid;
+        grid-template-columns: 2.9rem minmax(0, 1fr);
+        gap: .8rem;
+        align-items: center;
+    }
+
+    &__date {
+        display: grid;
+        place-items: center;
+        padding: .3rem 0;
+        border-radius: var(--instracta-r-md);
+        background: var(--instracta-primary-soft);
+        color: var(--instracta-primary);
+        line-height: 1.1;
+
+        span {
+            font-size: .625rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        strong {
+            font-size: 1.1rem;
+        }
+    }
+
+    &__item.is-soon &__date {
+        background: #fdecec;
+        color: #b42323;
+    }
+
+    &__text {
+        display: grid;
+        min-width: 0;
+        line-height: 1.3;
+
+        a {
+            font-weight: 700;
+            color: var(--instracta-text);
+            text-decoration: none;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            &:hover {
+                color: var(--instracta-primary);
+            }
+        }
+
+        small {
+            color: var(--instracta-text-muted);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}
+
+:root[data-instracta-theme="dark"] .hub-due__item.is-soon .hub-due__date {
+    background: rgba(214, 69, 69, .2);
+    color: #ffb3b3;
+}
+
+// Moodle's own dashboard blocks, calmer than the default.
+.pagelayout-mydashboard {
+    #region-main .block,
+    #region-main .card {
+        border-color: var(--instracta-border);
+        box-shadow: none;
+    }
+
+    #region-main .block .card-title {
+        font-size: 1.0625rem;
+    }
+
+    .block_timeline .event-name-container a,
+    .block_timeline .event-name-container + small {
+        font-weight: 600;
+    }
+}

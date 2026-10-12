@@ -1,0 +1,85 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_instracta/landing
+
+    Course landing page.
+
+    Example context (json):
+    {
+        "name": "Course", "category": "Cat", "categoryurl": "https://example.org/c", "image": "https://example.org/a.png",
+        "summary": "<p>Summary</p>", "hassummary": true,
+        "teachers": [{"name": "A. Teacher", "role": "Teacher"}], "hasteachers": true,
+        "learners": 12, "learnerslabel": "12 learners", "sectionslabel": "2 sections", "sections": 2,
+        "syllabus": [{"number": 1, "name": "Intro", "count": 3, "countlabel": "3 activities"}], "hassyllabus": true,
+        "price": "", "free": true, "enrolled": false,
+        "courseurl": "https://example.org/course", "enrolurl": "https://example.org/enrol", "catalogueurl": "https://example.org/cat"
+    }
+}}
+<div class="instracta-land">
+    <section class="instracta-land__hero">
+        <div class="instracta-land__media" style="background-image: url('{{{ image }}}')" role="presentation"></div>
+        <div class="instracta-land__heroin">
+            <a class="instracta-land__back" href="{{{ catalogueurl }}}"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i>{{#str}} ld_back, theme_instracta {{/str}}</a>
+            {{#category}}<a class="instracta-land__cat" href="{{{ categoryurl }}}">{{ category }}</a>{{/category}}
+            <h2 class="instracta-land__title">{{ name }}</h2>
+            <ul class="instracta-land__facts">
+                <li><i class="fa-solid fa-user-group" aria-hidden="true"></i>{{ learnerslabel }}</li>
+                {{#sections}}<li><i class="fa-solid fa-layer-group" aria-hidden="true"></i>{{ sectionslabel }}</li>{{/sections}}
+            </ul>
+        </div>
+    </section>
+    <div class="instracta-land__cols">
+        <div class="instracta-land__main">
+            {{#hassummary}}
+            <section class="instracta-land__sec">
+                <h3>{{#str}} ld_about, theme_instracta {{/str}}</h3>
+                <div class="instracta-land__summary">{{{ summary }}}</div>
+            </section>
+            {{/hassummary}}
+            {{#hassyllabus}}
+            <section class="instracta-land__sec">
+                <h3>{{#str}} ld_syllabus, theme_instracta {{/str}}</h3>
+                <ol class="instracta-land__syl">
+                    {{#syllabus}}
+                    <li><span class="instracta-land__num">{{ number }}</span><span class="instracta-land__sname">{{ name }}</span><span class="instracta-land__scount">{{ countlabel }}</span></li>
+                    {{/syllabus}}
+                </ol>
+            </section>
+            {{/hassyllabus}}
+            {{#hasteachers}}
+            <section class="instracta-land__sec">
+                <h3>{{#str}} ld_teachers, theme_instracta {{/str}}</h3>
+                <ul class="instracta-land__teachers">
+                    {{#teachers}}<li><strong>{{ name }}</strong><span>{{ role }}</span></li>{{/teachers}}
+                </ul>
+            </section>
+            {{/hasteachers}}
+        </div>
+        <aside class="instracta-land__side">
+            <div class="instracta-land__card">
+                <div class="instracta-land__price">{{#free}}{{#str}} cat_free, theme_instracta {{/str}}{{/free}}{{^free}}{{ price }}{{/free}}</div>
+                {{#enrolled}}<a class="btn btn-primary btn-lg w-100" href="{{{ courseurl }}}">{{#str}} cat_continue, theme_instracta {{/str}}</a>{{/enrolled}}
+                {{^enrolled}}<a class="btn btn-primary btn-lg w-100" href="{{{ enrolurl }}}">{{#str}} ld_enrol, theme_instracta {{/str}}</a>{{/enrolled}}
+                <ul class="instracta-land__incl">
+                    <li><i class="fa-solid fa-infinity" aria-hidden="true"></i>{{#str}} ld_incl_access, theme_instracta {{/str}}</li>
+                    <li><i class="fa-solid fa-mobile-screen" aria-hidden="true"></i>{{#str}} ld_incl_device, theme_instracta {{/str}}</li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>

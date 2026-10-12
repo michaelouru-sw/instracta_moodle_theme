@@ -1,0 +1,44 @@
+// Scroll reveal. Content is only hidden once the theme script has confirmed it can reveal it.
+
+html.instracta-js {
+    .instracta-anim-fade,
+    .instracta-anim-up,
+    .instracta-anim-zoom {
+        opacity: 0;
+        transition: opacity .7s var(--instracta-ease), transform .7s var(--instracta-ease);
+        will-change: opacity, transform;
+
+        &.is-in {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    .instracta-anim-up {
+        transform: translateY(1.75rem);
+    }
+
+    .instracta-anim-zoom {
+        transform: scale(.96);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.instracta-js .instracta-anim-fade,
+    html.instracta-js .instracta-anim-up,
+    html.instracta-js .instracta-anim-zoom {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .instracta-art-card {
+        animation: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+    }
+}

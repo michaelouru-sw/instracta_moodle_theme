@@ -1,0 +1,54 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_instracta/sections/courses
+
+    Instracta page builder template.
+
+    Example context (json):
+    {}
+}}
+{{#hashead}}<header class="instracta-head instracta-head--center">{{> theme_instracta/sections/partial_head }}</header>{{/hashead}}
+{{#hascards}}
+<div class="instracta-courses{{#isgrid}} instracta-grid instracta-grid--{{columns}}{{/isgrid}}{{#iscarousel}} instracta-carousel{{/iscarousel}}"{{#iscarousel}} data-instracta-carousel="1"{{/iscarousel}}>
+    {{#iscarousel}}<div class="instracta-carousel__track" tabindex="0">{{/iscarousel}}
+    {{#cards}}
+    <article class="instracta-course">
+        <a class="instracta-course__media" href="{{url}}" tabindex="-1" aria-hidden="true">
+            {{#hasimage}}<img src="{{image}}" alt="" loading="lazy">{{/hasimage}}
+            {{^hasimage}}<span class="instracta-course__pattern" style="background-image: url('{{{pattern}}}')"></span>{{/hasimage}}
+        </a>
+        <div class="instracta-course__body">
+            {{#category}}<span class="instracta-chip">{{category}}</span>{{/category}}
+            <h3 class="instracta-course__title"><a href="{{url}}">{{name}}</a></h3>
+            {{#summary}}<p class="instracta-course__summary">{{summary}}</p>{{/summary}}
+            <div class="instracta-course__meta">
+                {{#showenrolled}}<span class="instracta-course__enrolled"><i class="fa-solid fa-user-group" aria-hidden="true"></i> {{enrolled}}</span>{{/showenrolled}}
+                <a class="instracta-link" href="{{url}}">{{#str}}viewcourse, theme_instracta{{/str}} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </article>
+    {{/cards}}
+    {{#iscarousel}}</div>
+    <div class="instracta-carousel__nav">
+        <button type="button" class="instracta-carousel__btn" data-instracta-dir="-1" aria-label="{{#str}}previous, core{{/str}}"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+        <button type="button" class="instracta-carousel__btn" data-instracta-dir="1" aria-label="{{#str}}next, core{{/str}}"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+    </div>{{/iscarousel}}
+</div>
+{{/hascards}}
+{{^hascards}}<p class="instracta-empty">{{#str}}nocourses, theme_instracta{{/str}}</p>{{/hascards}}
+{{#hasbtn}}<div class="instracta-more"><a class="btn btn-primary btn-lg" href="{{btnurl}}">{{btntext}}</a></div>{{/hasbtn}}

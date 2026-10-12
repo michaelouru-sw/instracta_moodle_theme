@@ -1,0 +1,93 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_instracta/catalogue
+
+    Course catalogue with search, filters and a grid or list view.
+
+    Example context (json):
+    {
+        "action": "https://example.org/theme/instracta/catalogue.php",
+        "query": "",
+        "categories": [{"id": 0, "name": "All categories", "selected": true}],
+        "sortname": true,
+        "sortnewest": false,
+        "view": "grid",
+        "urlgrid": "https://example.org/g",
+        "urllist": "https://example.org/l",
+        "isgrid": true,
+        "islist": false,
+        "hascards": true,
+        "count": "3 courses",
+        "cards": [{"id": 2, "name": "Course", "category": "Cat", "summary": "Summary", "teachers": "A. Teacher",
+            "image": "https://example.org/a.png", "url": "https://example.org/c", "learners": 12, "price": "", "enrolled": false}]
+    }
+}}
+<div class="instracta-cat">
+    <form class="instracta-cat__bar" method="get" action="{{{ action }}}" role="search">
+        <label class="visually-hidden" for="instracta-cat-q">{{#str}} cat_search, theme_instracta {{/str}}</label>
+        <input id="instracta-cat-q" class="form-control instracta-cat__q" type="search" name="q" value="{{ query }}"
+            placeholder="{{#str}} cat_search, theme_instracta {{/str}}">
+        <label class="visually-hidden" for="instracta-cat-cat">{{#str}} cat_category, theme_instracta {{/str}}</label>
+        <select id="instracta-cat-cat" class="form-select" name="cat">
+            {{#categories}}<option value="{{ id }}" {{#selected}}selected{{/selected}}>{{ name }}</option>{{/categories}}
+        </select>
+        <label class="visually-hidden" for="instracta-cat-sort">{{#str}} cat_sort, theme_instracta {{/str}}</label>
+        <select id="instracta-cat-sort" class="form-select" name="sort">
+            <option value="name" {{#sortname}}selected{{/sortname}}>{{#str}} cat_sort_name, theme_instracta {{/str}}</option>
+            <option value="newest" {{#sortnewest}}selected{{/sortnewest}}>{{#str}} cat_sort_newest, theme_instracta {{/str}}</option>
+        </select>
+        <input type="hidden" name="view" value="{{ view }}">
+        <button class="btn btn-primary" type="submit">{{#str}} cat_apply, theme_instracta {{/str}}</button>
+    </form>
+    <div class="instracta-cat__meta">
+        <span>{{ count }}</span>
+        <span class="instracta-cat__views" role="group" aria-label="{{#str}} cat_view, theme_instracta {{/str}}">
+            <a class="{{#isgrid}}is-active{{/isgrid}}" href="{{{ urlgrid }}}" aria-label="{{#str}} cat_grid, theme_instracta {{/str}}"><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i></a>
+            <a class="{{#islist}}is-active{{/islist}}" href="{{{ urllist }}}" aria-label="{{#str}} cat_list, theme_instracta {{/str}}"><i class="fa-solid fa-list" aria-hidden="true"></i></a>
+        </span>
+    </div>
+    {{#hascards}}
+    <div class="instracta-cat__grid {{#islist}}is-list{{/islist}}">
+        {{#cards}}
+        <article class="instracta-ccard">
+            <a class="instracta-ccard__media" href="{{{ url }}}" tabindex="-1" aria-hidden="true">
+                <img src="{{{ image }}}" alt="" loading="lazy">
+            </a>
+            <div class="instracta-ccard__body">
+                {{#category}}<div class="instracta-ccard__cat">{{ category }}</div>{{/category}}
+                <h3 class="instracta-ccard__title"><a href="{{{ url }}}">{{ name }}</a></h3>
+                {{#summary}}<p class="instracta-ccard__text">{{ summary }}</p>{{/summary}}
+                <div class="instracta-ccard__meta">
+                    {{#teachers}}<span><i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i>{{ teachers }}</span>{{/teachers}}
+                    <span><i class="fa-solid fa-user-group" aria-hidden="true"></i>{{ learners }}</span>
+                </div>
+                <div class="instracta-ccard__foot">
+                    <span class="instracta-ccard__price">{{#price}}{{ price }}{{/price}}{{^price}}{{#str}} cat_free, theme_instracta {{/str}}{{/price}}</span>
+                    <a class="btn btn-sm {{#enrolled}}btn-primary{{/enrolled}}{{^enrolled}}btn-outline-primary{{/enrolled}}" href="{{{ url }}}">
+                        {{#enrolled}}{{#str}} cat_continue, theme_instracta {{/str}}{{/enrolled}}{{^enrolled}}{{#str}} cat_view_course, theme_instracta {{/str}}{{/enrolled}}
+                    </a>
+                </div>
+            </div>
+        </article>
+        {{/cards}}
+    </div>
+    {{/hascards}}
+    {{^hascards}}
+    <div class="instracta-cat__empty">{{#str}} cat_none, theme_instracta {{/str}}</div>
+    {{/hascards}}
+</div>

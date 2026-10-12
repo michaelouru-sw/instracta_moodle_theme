@@ -1,0 +1,152 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_instracta/learner_strip
+
+    The learner hub at the top of the dashboard: greeting, quick links, the course to continue, courses in progress,
+    key numbers, the week at a glance and what is due next.
+
+    Example context (json):
+    {
+        "greeting": "Good morning, Alex",
+        "date": "Monday, 12 October 2026",
+        "subline": "You have 3 courses in progress.",
+        "stats": [{"value": "3", "label": "Courses"}],
+        "links": [{"icon": "compass", "url": "#", "label": "Browse"}],
+        "hasresume": true,
+        "resume": {"name": "Course", "url": "#", "progress": 40, "hasprogress": true, "image": "", "hasimage": false},
+        "courses": [{"name": "Course", "url": "#", "image": "", "hasimage": false, "progress": 20, "hasprogress": true, "seen": "Last seen today"}],
+        "hasweek": true,
+        "weeksummary": "Active 4 of the last 7 days",
+        "week": [{"day": "Mon", "height": 40, "active": true, "today": false}],
+        "upcoming": [{"name": "Essay", "course": "Course", "when": "Fri 5 pm", "url": "#", "hasurl": true, "soon": true, "month": "Oct", "day": "16"}],
+        "browseurl": "#"
+    }
+}}
+<div class="instracta-hub" data-region="instracta-learner">
+    <header class="hub-head">
+        <div class="hub-head__text">
+            <p class="hub-date">{{ date }}</p>
+            <h2 class="hub-title">{{ greeting }}</h2>
+            <p class="hub-sub">{{ subline }}</p>
+        </div>
+        <nav class="hub-links" aria-label="{{#str}} learner_ql_label, theme_instracta {{/str}}">
+            {{#links}}<a class="hub-link" href="{{{ url }}}"><i class="fa-solid fa-{{ icon }}" aria-hidden="true"></i><span>{{ label }}</span></a>{{/links}}
+        </nav>
+    </header>
+
+    <div class="hub-grid">
+        <div class="hub-main">
+            {{#hasresume}}{{#resume}}
+            <section class="hub-feature" aria-labelledby="hub-feature-title">
+                <a class="hub-feature__media" href="{{{ url }}}" tabindex="-1" aria-hidden="true"{{#hasimage}} style="background-image: url('{{{ image }}}')"{{/hasimage}}></a>
+                <div class="hub-feature__body">
+                    <p class="hub-eyebrow">{{#str}} learner_continue, theme_instracta {{/str}}</p>
+                    <h3 class="hub-feature__title" id="hub-feature-title">{{ name }}</h3>
+                    {{#hasprogress}}
+                    <div class="hub-meter">
+                        <div class="progress" role="progressbar" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100" aria-label="{{ name }}">
+                            <div class="progress-bar" style="width: {{ progress }}%"></div>
+                        </div>
+                        <span>{{#str}} learner_percentcomplete, theme_instracta, {{ progress }} {{/str}}</span>
+                    </div>
+                    {{/hasprogress}}
+                    <a class="btn btn-primary hub-feature__cta" href="{{{ url }}}">{{#str}} learner_resume, theme_instracta {{/str}} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </div>
+            </section>
+            {{/resume}}{{/hasresume}}
+            {{^hasresume}}
+            <section class="hub-feature hub-feature--empty">
+                <div class="hub-feature__body">
+                    <p class="hub-eyebrow">{{#str}} learner_getstarted, theme_instracta {{/str}}</p>
+                    <h3 class="hub-feature__title">{{#str}} learner_noenrolments, theme_instracta {{/str}}</h3>
+                    <a class="btn btn-primary hub-feature__cta" href="{{{ browseurl }}}">{{#str}} learner_browse, theme_instracta {{/str}} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </div>
+            </section>
+            {{/hasresume}}
+
+            {{#courses.0}}
+            <section class="hub-section" aria-labelledby="hub-inprogress">
+                <h3 class="hub-h" id="hub-inprogress">{{#str}} learner_inprogress, theme_instracta {{/str}}</h3>
+                <div class="hub-courses">
+                    {{/courses.0}}
+                    {{#courses}}
+                    <a class="hub-course" href="{{{ url }}}">
+                        <span class="hub-course__thumb"{{#hasimage}} style="background-image: url('{{{ image }}}')"{{/hasimage}}></span>
+                        <span class="hub-course__body">
+                            <span class="hub-course__name">{{ name }}</span>
+                            <span class="hub-course__seen">{{ seen }}</span>
+                            {{#hasprogress}}
+                            <span class="hub-course__bar"><span style="width: {{ progress }}%"></span></span>
+                            <span class="hub-course__pct">{{ progress }}%</span>
+                            {{/hasprogress}}
+                        </span>
+                    </a>
+                    {{/courses}}
+                    {{#courses.0}}
+                </div>
+            </section>
+            {{/courses.0}}
+        </div>
+
+        <aside class="hub-side">
+            <div class="hub-stats">
+                {{#stats}}
+                <div class="hub-stat">
+                    <div class="hub-stat__value">{{{ value }}}</div>
+                    <div class="hub-stat__label">{{ label }}</div>
+                </div>
+                {{/stats}}
+            </div>
+
+            {{#hasweek}}
+            <section class="hub-card" aria-labelledby="hub-week">
+                <h3 class="hub-h" id="hub-week">{{#str}} learner_thisweek, theme_instracta {{/str}}</h3>
+                <div class="hub-week" role="img" aria-label="{{ weeksummary }}">
+                    {{#week}}
+                    <div class="hub-week__day{{#today}} is-today{{/today}}{{#active}} is-active{{/active}}">
+                        <span class="hub-week__bar"><span style="height: {{ height }}%"></span></span>
+                        <span class="hub-week__label">{{ day }}</span>
+                    </div>
+                    {{/week}}
+                </div>
+                <p class="hub-note">{{ weeksummary }}</p>
+            </section>
+            {{/hasweek}}
+
+            <section class="hub-card" aria-labelledby="hub-due">
+                <h3 class="hub-h" id="hub-due">{{#str}} learner_upnext, theme_instracta {{/str}}</h3>
+                {{#upcoming.0}}
+                <ul class="hub-due">
+                    {{/upcoming.0}}
+                    {{#upcoming}}
+                    <li class="hub-due__item{{#soon}} is-soon{{/soon}}">
+                        <span class="hub-due__date"><span>{{ month }}</span><strong>{{ day }}</strong></span>
+                        <span class="hub-due__text">
+                            {{#hasurl}}<a href="{{{ url }}}">{{ name }}</a>{{/hasurl}}{{^hasurl}}{{ name }}{{/hasurl}}
+                            <small>{{ course }} · {{ when }}</small>
+                        </span>
+                    </li>
+                    {{/upcoming}}
+                    {{#upcoming.0}}
+                </ul>
+                {{/upcoming.0}}
+                {{^upcoming}}<p class="hub-note"><i class="fa-regular fa-circle-check" aria-hidden="true"></i> {{#str}} learner_nothingdue, theme_instracta {{/str}}</p>{{/upcoming}}
+            </section>
+        </aside>
+    </div>
+</div>

@@ -1,0 +1,199 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_instracta/analytics/page
+
+    Instracta site analytics dashboard body.
+
+    Example context (json):
+    {
+        "ranges": [{"label": "30 days", "url": "#", "active": true}],
+        "categories": [{"id": 0, "name": "Whole site", "selected": true}],
+        "formurl": "#",
+        "days": 30,
+        "kpis": [{"label": "Active users", "icon": "users", "value": "120", "hasdelta": true, "deltaclass": "up", "deltaicon": "arrow-up", "deltatext": "+4%", "previous": "vs 115"}],
+        "engagementchart": "", "flowchart": "", "modulechart": "", "hasmodules": false,
+        "heat": {"hasdata": false, "rows": [], "hours": []},
+        "topcourses": [], "hastopcourses": false, "completion": [], "hascompletion": false,
+        "exportactivity": "#", "exportcourses": "#", "exportcompletion": "#", "exportmodules": "#", "exportheatmap": "#",
+        "refreshurl": "#", "totalsline": "1,000 users", "logdisabled": false
+    }
+}}
+<div class="instracta-an" data-region="instracta-analytics">
+    <div class="instracta-an__bar">
+        <div>
+            <h2>{{#str}}analytics_title, theme_instracta{{/str}}</h2>
+            <p>{{#str}}analytics_subtitle, theme_instracta{{/str}}</p>
+        </div>
+        <div class="instracta-an__filters">
+            <nav class="instracta-range" aria-label="{{#str}}analytics_range, theme_instracta{{/str}}">
+                {{#ranges}}<a href="{{{ url }}}" class="{{#active}}is-active{{/active}}"{{#active}} aria-current="true"{{/active}}>{{ label }}</a>{{/ranges}}
+            </nav>
+            <form method="get" action="{{{ formurl }}}" class="d-flex gap-2">
+                <input type="hidden" name="days" value="{{ days }}">
+                <label class="visually-hidden" for="instracta-an-cat">{{#str}}analytics_category, theme_instracta{{/str}}</label>
+                <select id="instracta-an-cat" name="cat" class="form-select" onchange="this.form.submit()">
+                    {{#categories}}<option value="{{ id }}"{{#selected}} selected{{/selected}}>{{ name }}</option>{{/categories}}
+                </select>
+                <noscript><button type="submit" class="btn btn-secondary">{{#str}}go, core{{/str}}</button></noscript>
+            </form>
+            <a class="btn btn-secondary" href="{{{ refreshurl }}}" title="{{#str}}analytics_refresh_help, theme_instracta{{/str}}">
+                <i class="fa-solid fa-rotate" aria-hidden="true"></i> {{#str}}analytics_refresh, theme_instracta{{/str}}
+            </a>
+        </div>
+    </div>
+
+    {{#logdisabled}}
+    <div class="alert alert-warning" role="alert">{{#str}}analytics_logdisabled, theme_instracta{{/str}}</div>
+    {{/logdisabled}}
+
+    <div class="instracta-kpis">
+        {{#kpis}}
+        <div class="instracta-kpi">
+            <div class="instracta-kpi__label"><span class="instracta-icon"><i class="fa-solid fa-{{ icon }}" aria-hidden="true"></i></span>{{ label }}</div>
+            <div class="instracta-kpi__value">{{ value }}</div>
+            <div class="instracta-kpi__foot">
+                {{#hasdelta}}<span class="instracta-delta instracta-delta--{{ deltaclass }}"><i class="fa-solid fa-{{ deltaicon }}" aria-hidden="true"></i> {{ deltatext }}</span>{{/hasdelta}}
+                <span>{{ previous }}</span>
+            </div>
+        </div>
+        {{/kpis}}
+    </div>
+
+    <div class="instracta-an__grid">
+        <section class="instracta-panel instracta-panel--wide">
+            <div class="instracta-panel__head">
+                <div>
+                    <h3>{{#str}}analytics_engagement, theme_instracta{{/str}}</h3>
+                    <p>{{#str}}analytics_engagement_desc, theme_instracta{{/str}}</p>
+                </div>
+                <a class="btn btn-sm btn-secondary" href="{{{ exportactivity }}}"><i class="fa-solid fa-download" aria-hidden="true"></i> {{#str}}analytics_csv, theme_instracta{{/str}}</a>
+            </div>
+            {{{ engagementchart }}}
+        </section>
+
+        <section class="instracta-panel">
+            <div class="instracta-panel__head">
+                <div>
+                    <h3>{{#str}}analytics_flow, theme_instracta{{/str}}</h3>
+                    <p>{{#str}}analytics_flow_desc, theme_instracta{{/str}}</p>
+                </div>
+            </div>
+            {{{ flowchart }}}
+        </section>
+
+        <section class="instracta-panel">
+            <div class="instracta-panel__head">
+                <div>
+                    <h3>{{#str}}analytics_modules, theme_instracta{{/str}}</h3>
+                    <p>{{#str}}analytics_modules_desc, theme_instracta{{/str}}</p>
+                </div>
+                <a class="btn btn-sm btn-secondary" href="{{{ exportmodules }}}"><i class="fa-solid fa-download" aria-hidden="true"></i> {{#str}}analytics_csv, theme_instracta{{/str}}</a>
+            </div>
+            {{#hasmodules}}{{{ modulechart }}}{{/hasmodules}}
+            {{^hasmodules}}<p class="instracta-empty">{{#str}}analytics_nodata, theme_instracta{{/str}}</p>{{/hasmodules}}
+        </section>
+
+        <section class="instracta-panel instracta-panel--wide">
+            <div class="instracta-panel__head">
+                <div>
+                    <h3>{{#str}}analytics_heatmap, theme_instracta{{/str}}</h3>
+                    <p>{{#str}}analytics_heatmap_desc, theme_instracta{{/str}}</p>
+                </div>
+                <a class="btn btn-sm btn-secondary" href="{{{ exportheatmap }}}"><i class="fa-solid fa-download" aria-hidden="true"></i> {{#str}}analytics_csv, theme_instracta{{/str}}</a>
+            </div>
+            {{#heat.hasdata}}
+            <div class="instracta-heat" role="img" aria-label="{{#str}}analytics_heatmap, theme_instracta{{/str}}">
+                <span></span>
+                {{#heat.hours}}<span class="instracta-heat__hour">{{ label }}</span>{{/heat.hours}}
+                {{#heat.rows}}
+                    <span class="instracta-heat__label">{{ label }}</span>
+                    {{#cells}}<span class="instracta-heat__cell" style="--v: {{ v }}" title="{{ title }}"></span>{{/cells}}
+                {{/heat.rows}}
+            </div>
+            <div class="instracta-heat-legend">
+                <span>{{#str}}analytics_less, theme_instracta{{/str}}</span>
+                <span style="--v: 0"></span><span style="--v: .25"></span><span style="--v: .5"></span><span style="--v: .75"></span><span style="--v: 1"></span>
+                <span style="background: none; width: auto">{{#str}}analytics_more, theme_instracta{{/str}}</span>
+            </div>
+            {{/heat.hasdata}}
+            {{^heat.hasdata}}<p class="instracta-empty">{{#str}}analytics_nodata, theme_instracta{{/str}}</p>{{/heat.hasdata}}
+        </section>
+
+        <section class="instracta-panel">
+            <div class="instracta-panel__head">
+                <div>
+                    <h3>{{#str}}analytics_topcourses, theme_instracta{{/str}}</h3>
+                    <p>{{#str}}analytics_topcourses_desc, theme_instracta{{/str}}</p>
+                </div>
+                <a class="btn btn-sm btn-secondary" href="{{{ exportcourses }}}"><i class="fa-solid fa-download" aria-hidden="true"></i> {{#str}}analytics_csv, theme_instracta{{/str}}</a>
+            </div>
+            {{#hastopcourses}}
+            <ol class="instracta-hbars">
+                {{#topcourses}}
+                <li class="instracta-hbar">
+                    <span class="instracta-hbar__name"><a href="{{{ url }}}">{{ name }}</a></span>
+                    <span class="instracta-hbar__value">{{ userlabel }}</span>
+                    <span class="instracta-hbar__track"><span class="instracta-hbar__fill" style="--w: {{ width }}"></span></span>
+                </li>
+                {{/topcourses}}
+            </ol>
+            {{/hastopcourses}}
+            {{^hastopcourses}}<p class="instracta-empty">{{#str}}analytics_nodata, theme_instracta{{/str}}</p>{{/hastopcourses}}
+        </section>
+
+        <section class="instracta-panel">
+            <div class="instracta-panel__head">
+                <div>
+                    <h3>{{#str}}analytics_completion, theme_instracta{{/str}}</h3>
+                    <p>{{#str}}analytics_completion_desc, theme_instracta{{/str}}</p>
+                </div>
+                <a class="btn btn-sm btn-secondary" href="{{{ exportcompletion }}}"><i class="fa-solid fa-download" aria-hidden="true"></i> {{#str}}analytics_csv, theme_instracta{{/str}}</a>
+            </div>
+            {{#hascompletion}}
+            <div class="table-responsive">
+                <table class="table table-sm align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">{{#str}}course{{/str}}</th>
+                            <th scope="col" class="text-end">{{#str}}analytics_col_enrolled, theme_instracta{{/str}}</th>
+                            <th scope="col" class="text-end">{{#str}}analytics_col_completed, theme_instracta{{/str}}</th>
+                            <th scope="col" style="min-width: 7rem">{{#str}}analytics_col_rate, theme_instracta{{/str}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#completion}}
+                        <tr>
+                            <td><a href="{{{ url }}}">{{ name }}</a></td>
+                            <td class="text-end">{{ enrolled }}</td>
+                            <td class="text-end">{{ completed }}</td>
+                            <td>
+                                <div class="progress" role="progressbar" aria-valuenow="{{ rate }}" aria-valuemin="0" aria-valuemax="100" aria-label="{{ name }}"><div class="progress-bar" style="width: {{ rate }}%"></div></div>
+                                <small class="text-muted">{{ rate }}%</small>
+                            </td>
+                        </tr>
+                        {{/completion}}
+                    </tbody>
+                </table>
+            </div>
+            {{/hascompletion}}
+            {{^hascompletion}}<p class="instracta-empty">{{#str}}analytics_nocompletion, theme_instracta{{/str}}</p>{{/hascompletion}}
+        </section>
+    </div>
+
+    <p class="instracta-note">{{ totalsline }} &middot; {{#str}}analytics_cachenote, theme_instracta{{/str}}</p>
+</div>

@@ -1,0 +1,877 @@
+// Course experience: banner, page layouts, card styles and the course index.
+// Layout choices arrive as data-i-cl (course page), data-i-ch (course header), data-i-cs (cards)
+// and data-i-ci (course index) on <html>.
+
+// ---- Course header banner ----------------------------------------------------------------------
+
+.instracta-cbanner {
+    position: relative;
+    margin-bottom: 1.5rem;
+    border-radius: var(--instracta-r-xl);
+    overflow: hidden;
+    background: var(--instracta-dark-bg);
+    color: #fff;
+    isolation: isolate;
+
+    &__media {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        background: var(--instracta-gradient) center / cover no-repeat;
+    }
+
+    &__media::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(8, 14, 28, .92) 0%, rgba(8, 14, 28, .72) 55%, rgba(8, 14, 28, .35) 100%);
+    }
+
+    &__body {
+        display: grid;
+        gap: .85rem;
+        padding: clamp(1.5rem, 4vw, 3rem);
+        max-width: 56rem;
+    }
+
+    &__crumb {
+        font-size: .8125rem;
+        font-weight: 600;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+        color: var(--instracta-accent);
+    }
+
+    &__crumb a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    &__title {
+        margin: 0;
+        font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+        line-height: 1.12;
+        font-weight: 800;
+        letter-spacing: -.03em;
+        color: #fff;
+    }
+
+    &__summary {
+        margin: 0;
+        max-width: 46rem;
+        font-size: 1.0625rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, .82);
+    }
+
+    &__meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem 1.25rem;
+        margin: .25rem 0 0;
+        padding: 0;
+        list-style: none;
+        font-size: .875rem;
+        color: rgba(255, 255, 255, .8);
+
+        i {
+            margin-right: .4rem;
+            opacity: .75;
+        }
+    }
+
+    &__progress {
+        display: flex;
+        align-items: center;
+        gap: .85rem;
+        max-width: 26rem;
+        font-size: .875rem;
+        font-weight: 600;
+
+        .progress {
+            flex: 1;
+            height: .45rem;
+            background: rgba(255, 255, 255, .22);
+        }
+    }
+
+    &__actions {
+        margin-top: .35rem;
+
+        .btn-primary {
+            --bs-btn-bg: #fff;
+            --bs-btn-color: var(--instracta-dark-bg);
+            --bs-btn-border-color: #fff;
+            --bs-btn-hover-bg: var(--instracta-accent);
+            --bs-btn-hover-color: var(--instracta-dark-bg);
+            --bs-btn-hover-border-color: var(--instracta-accent);
+        }
+    }
+}
+
+// The banner replaces the plain course title.
+html:not([data-i-ch="none"]) body.instracta-has-banner #page-header .page-context-header {
+    display: none !important;
+}
+
+html[data-i-ch="none"] .instracta-cbanner {
+    display: none;
+}
+
+// Split: text on a quiet surface, image beside it.
+html[data-i-ch="split"] .instracta-cbanner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    background: var(--instracta-surface-2);
+    color: var(--instracta-text);
+    border: 1px solid var(--instracta-border);
+
+    .instracta-cbanner__media {
+        position: relative;
+        inset: auto;
+        order: 2;
+        z-index: 0;
+        min-height: 18rem;
+    }
+
+    .instracta-cbanner__media::after {
+        display: none;
+    }
+
+    .instracta-cbanner__title {
+        color: var(--instracta-heading);
+    }
+
+    .instracta-cbanner__summary,
+    .instracta-cbanner__meta {
+        color: var(--instracta-text-muted);
+    }
+
+    .instracta-cbanner__crumb {
+        color: var(--instracta-primary);
+    }
+
+    .instracta-cbanner__progress .progress {
+        background: var(--instracta-border);
+    }
+
+    .instracta-cbanner__actions .btn-primary {
+        --bs-btn-bg: var(--instracta-primary);
+        --bs-btn-color: var(--instracta-on-primary);
+        --bs-btn-border-color: var(--instracta-primary);
+        --bs-btn-hover-bg: var(--instracta-primary-hover);
+        --bs-btn-hover-color: var(--instracta-on-primary);
+        --bs-btn-hover-border-color: var(--instracta-primary-hover);
+    }
+
+    @media (max-width: 767.98px) {
+        grid-template-columns: 1fr;
+
+        .instracta-cbanner__media {
+            order: 0;
+            min-height: 11rem;
+        }
+    }
+}
+
+// Minimal: a clean title block with a hairline.
+html[data-i-ch="minimal"] .instracta-cbanner {
+    background: transparent;
+    color: var(--instracta-text);
+    border-radius: 0;
+    border-bottom: 1px solid var(--instracta-border);
+
+    .instracta-cbanner__media {
+        display: none;
+    }
+
+    .instracta-cbanner__body {
+        padding: .5rem 0 1.5rem;
+    }
+
+    .instracta-cbanner__title {
+        color: var(--instracta-heading);
+        font-size: clamp(1.6rem, 3vw, 2.25rem);
+    }
+
+    .instracta-cbanner__crumb {
+        color: var(--instracta-primary);
+    }
+
+    .instracta-cbanner__summary,
+    .instracta-cbanner__meta {
+        color: var(--instracta-text-muted);
+    }
+
+    .instracta-cbanner__progress .progress {
+        background: var(--instracta-border);
+    }
+
+    .instracta-cbanner__actions .btn-primary {
+        --bs-btn-bg: var(--instracta-primary);
+        --bs-btn-color: var(--instracta-on-primary);
+        --bs-btn-border-color: var(--instracta-primary);
+        --bs-btn-hover-bg: var(--instracta-primary-hover);
+        --bs-btn-hover-color: var(--instracta-on-primary);
+        --bs-btn-hover-border-color: var(--instracta-primary-hover);
+    }
+}
+
+// ---- Course page layouts -----------------------------------------------------------------------
+
+$sections: ".course-content .section-list > li.course-section";
+
+.course-content .section-list {
+    counter-reset: instracta-sec;
+}
+
+#{$sections}:not(#section-0) {
+    counter-increment: instracta-sec;
+}
+
+// Reading: a single centred column that reads like chapters of a book.
+html[data-i-cl="reading"] {
+    .course-content {
+        max-width: 50rem;
+        margin: 0 auto;
+    }
+
+    #{$sections} {
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+        margin: 0 0 .5rem;
+        border-top: 1px solid var(--instracta-border);
+
+        > .section-item,
+        .section-item {
+            border: 0;
+            background: transparent;
+            box-shadow: none;
+            padding: 1.5rem 0 .75rem;
+        }
+    }
+
+    #{$sections}:first-child {
+        border-top: 0;
+    }
+
+    #{$sections}:not(#section-0) .course-section-header .sectionname::before {
+        content: counter(instracta-sec, decimal-leading-zero);
+        display: block;
+        flex: 0 0 100%;
+        margin-bottom: .3rem;
+        font-family: var(--instracta-font-body);
+        font-size: .8125rem;
+        font-weight: 700;
+        letter-spacing: .12em;
+        color: var(--instracta-accent);
+    }
+
+    .course-section-header .sectionname,
+    .course-section-header h3 {
+        flex-wrap: wrap;
+        font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+        font-weight: 800;
+    }
+
+    .activity-item {
+        padding: .85rem .25rem;
+        border-radius: var(--instracta-r-md);
+    }
+
+    .activityname a,
+    .instancename {
+        font-size: 1.0625rem;
+    }
+}
+
+// Timeline: sections hang from a vertical line, each with a numbered marker.
+html[data-i-cl="timeline"] {
+    .course-content .section-list {
+        position: relative;
+        padding-left: 3.25rem;
+    }
+
+    .course-content .section-list::before {
+        content: "";
+        position: absolute;
+        left: 1.15rem;
+        top: .5rem;
+        bottom: .5rem;
+        width: 2px;
+        background: linear-gradient(var(--instracta-border-strong), var(--instracta-border));
+    }
+
+    #{$sections} {
+        position: relative;
+        margin-bottom: 1.25rem;
+    }
+
+    #{$sections}::before {
+        content: counter(instracta-sec);
+        position: absolute;
+        left: -3.25rem;
+        top: .9rem;
+        z-index: 1;
+        display: grid;
+        place-items: center;
+        width: 2.35rem;
+        height: 2.35rem;
+        border-radius: 50%;
+        background: var(--instracta-surface);
+        border: 2px solid var(--instracta-primary);
+        color: var(--instracta-primary);
+        font-size: .875rem;
+        font-weight: 800;
+        font-family: var(--instracta-font-heading);
+    }
+
+    #{$sections}#section-0::before {
+        content: "";
+        background: var(--instracta-primary);
+        border-color: var(--instracta-primary);
+        width: 1rem;
+        height: 1rem;
+        left: -2.55rem;
+        top: 1.5rem;
+    }
+
+    @media (max-width: 575.98px) {
+        .course-content .section-list {
+            padding-left: 2.5rem;
+        }
+
+        #{$sections}::before {
+            left: -2.5rem;
+            width: 2rem;
+            height: 2rem;
+        }
+
+        #{$sections}#section-0::before {
+            left: -1.95rem;
+        }
+
+        .course-content .section-list::before {
+            left: .95rem;
+        }
+    }
+}
+
+// Cards: sections as a responsive grid of tiles.
+html[data-i-cl="cards"] {
+    .course-content .section-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+        gap: 1.1rem;
+        align-items: start;
+    }
+
+    #{$sections}#section-0 {
+        grid-column: 1 / -1;
+    }
+
+    #{$sections}:not(#section-0) {
+        margin: 0;
+        height: 100%;
+
+        .course-section-header .sectionname::before {
+            content: counter(instracta-sec, decimal-leading-zero);
+            display: inline-grid;
+            place-items: center;
+            width: 2rem;
+            height: 2rem;
+            margin-right: .6rem;
+            border-radius: var(--instracta-r-md);
+            background: var(--instracta-primary-soft);
+            color: var(--instracta-primary);
+            font-size: .8125rem;
+            font-weight: 800;
+        }
+    }
+}
+
+// Compact: dense, for courses with many sections and activities.
+html[data-i-cl="compact"] {
+    #{$sections} {
+        margin-bottom: .5rem;
+        border-radius: var(--instracta-r-md);
+
+        .section-item {
+            padding: .35rem .6rem;
+        }
+
+        .course-section-header {
+            padding: .25rem 0;
+        }
+
+        .course-section-header .sectionname,
+        .course-section-header h3 {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .activity-item {
+            padding: .3rem .5rem;
+        }
+
+        .activity-instance {
+            font-size: .9375rem;
+        }
+
+        .my-3 {
+            margin-top: .25rem !important;
+            margin-bottom: .25rem !important;
+        }
+    }
+}
+
+// Focus: one section at a time (the theme script adds the navigation).
+html[data-i-cl="focus"] {
+    .course-content.instracta-focus .section-list > li.course-section:not(.is-current) {
+        display: none;
+    }
+
+    .course-content.instracta-focus .section-list > li.course-section.is-current {
+        margin-bottom: 1rem;
+    }
+
+    .course-content.instracta-focus .collapse:not(.show) {
+        display: block;
+    }
+
+    .course-content.instracta-focus .course-section-header [data-toggle="collapse"],
+    .course-content.instracta-focus .course-section-header [data-bs-toggle="collapse"],
+    .course-content.instracta-focus .collapseall,
+    .course-content.instracta-focus [data-for="sectionbulkedit"] {
+        display: none;
+    }
+}
+
+.instracta-focusnav {
+    position: sticky;
+    top: calc(var(--instracta-nav-height) + .5rem);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: 1rem;
+    padding: .55rem .65rem;
+    border: 1px solid var(--instracta-border);
+    border-radius: var(--instracta-r-lg);
+    background: var(--instracta-surface);
+    box-shadow: var(--instracta-shadow-sm);
+
+    &__list {
+        display: flex;
+        flex: 1;
+        gap: .3rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    &__item {
+        flex: none;
+        min-width: 2.25rem;
+        height: 2.25rem;
+        padding: 0 .65rem;
+        border: 0;
+        border-radius: var(--instracta-r-md);
+        background: transparent;
+        color: var(--instracta-text-muted);
+        font-weight: 700;
+        font-size: .875rem;
+        cursor: pointer;
+        transition: background-color .15s, color .15s;
+
+        &:hover {
+            background: var(--instracta-surface-2);
+            color: var(--instracta-text);
+        }
+
+        &.is-current {
+            background: var(--instracta-primary);
+            color: var(--instracta-on-primary);
+        }
+
+        &.is-done:not(.is-current)::after {
+            content: "";
+            display: inline-block;
+            width: .35rem;
+            height: .35rem;
+            margin-left: .3rem;
+            border-radius: 50%;
+            background: var(--instracta-accent);
+            vertical-align: middle;
+        }
+    }
+
+    &__step {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        gap: .4rem;
+    }
+
+    &__pager {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin: 1.25rem 0 .5rem;
+    }
+}
+
+// ---- Card styles (My courses, home page, dashboards) --------------------------------------------
+
+html[data-i-cs="elevated"] .card.course-card,
+html[data-i-cs="elevated"] .instracta-course {
+    border-color: transparent;
+    box-shadow: var(--instracta-shadow-md);
+}
+
+html[data-i-cs="outline"] .card.course-card,
+html[data-i-cs="outline"] .instracta-course {
+    box-shadow: none;
+    border: 1px solid var(--instracta-border-strong);
+}
+
+// Cover: the image fills the card, text sits on a navy scrim.
+html[data-i-cs="cover"] {
+    .card.course-card {
+        position: relative;
+        min-height: 15rem;
+        border: 0;
+        color: #fff;
+        background: var(--instracta-dark-bg);
+
+        > a {
+            position: absolute;
+            inset: 0;
+        }
+
+        .card-img-top {
+            height: 100% !important;
+            border-radius: 0;
+        }
+
+        .card-body {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            margin-top: auto;
+            padding: 3.5rem 1.1rem 1rem;
+            background: linear-gradient(transparent, rgba(8, 14, 28, .92) 55%);
+            pointer-events: none;
+
+            a,
+            .coursename,
+            .text-muted,
+            .multiline,
+            .small {
+                color: #fff !important;
+                pointer-events: auto;
+            }
+
+            .progress {
+                background: rgba(255, 255, 255, .25);
+            }
+        }
+    }
+}
+
+// List: horizontal cards, easiest to scan.
+html[data-i-cs="list"] {
+    .card-grid[data-region="card-deck"] {
+        --bs-gutter-x: 0;
+
+        &.row-cols-1,
+        &.row-cols-sm-2,
+        &.row-cols-lg-3 {
+            --bs-columns: 1;
+        }
+
+        > .col {
+            flex: 0 0 100%;
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+
+    .card.course-card {
+        flex-direction: row;
+        width: 100%;
+
+        > a {
+            flex: 0 0 15rem;
+        }
+
+        .card-img-top {
+            height: 100% !important;
+            min-height: 8.5rem;
+            border-radius: 0;
+        }
+
+        .card-body {
+            flex: 1;
+            align-self: center;
+        }
+
+        @media (max-width: 575.98px) {
+            flex-direction: column;
+
+            > a {
+                flex-basis: auto;
+            }
+
+            .card-img-top {
+                min-height: 8rem;
+            }
+        }
+    }
+}
+
+// ---- Course index (course/index.php, search results, category pages) -----------------------------
+
+.course_category_tree .courses,
+.courses.category-browse,
+#page-course-search .courses,
+.courses.frontpage-course-list-all,
+.courses.frontpage-course-list-enrolled {
+    display: grid;
+    gap: 1rem;
+}
+
+.coursebox {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--instracta-border);
+    border-radius: var(--instracta-r-lg);
+    background: var(--instracta-surface);
+    overflow: hidden;
+    transition: border-color .2s, box-shadow .2s, transform .2s var(--instracta-ease);
+
+    &:hover {
+        border-color: var(--instracta-border-strong);
+        box-shadow: var(--instracta-shadow-md);
+    }
+
+    .info {
+        padding: 1.1rem 1.25rem 0;
+    }
+
+    .coursename {
+        margin: 0;
+        font-size: 1.1875rem;
+        font-weight: 700;
+        letter-spacing: -.01em;
+
+        a {
+            color: var(--instracta-heading);
+            font-weight: 700;
+            text-decoration: none;
+
+            // The whole card is clickable.
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                z-index: 1;
+            }
+
+            &:hover {
+                color: var(--instracta-primary);
+            }
+        }
+    }
+
+    .content {
+        padding: .5rem 1.25rem 1.25rem;
+
+        > .d-flex {
+            gap: 1rem;
+        }
+    }
+
+    .courseimage {
+        flex: none;
+        margin: 0;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--instracta-r-md);
+        }
+    }
+
+    .summary {
+        color: var(--instracta-text-muted);
+        font-size: .9375rem;
+        line-height: 1.6;
+
+        p {
+            margin-bottom: .5rem;
+        }
+    }
+
+    .teachers {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .15rem 1rem;
+        margin: .5rem 0 0;
+        padding: 0;
+        list-style: none;
+        font-size: .8125rem;
+        color: var(--instracta-text-muted);
+
+        .fw-bold {
+            font-weight: 600 !important;
+        }
+
+        a {
+            position: relative;
+            z-index: 2;
+        }
+    }
+
+    .categoryname,
+    .coursecat {
+        font-size: .75rem;
+        font-weight: 700;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+        color: var(--instracta-text-muted);
+    }
+}
+
+// Grid: image-led tiles.
+html[data-i-ci="grid"] {
+    .course_category_tree .courses,
+    .courses.category-browse,
+    #page-course-search .courses,
+    .courses.frontpage-course-list-all,
+    .courses.frontpage-course-list-enrolled {
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    }
+
+    .coursebox {
+        display: flex;
+        flex-direction: column;
+
+        // Flatten the markup so image, title and summary stack in that order.
+        .content,
+        .content > .d-flex {
+            display: contents !important;
+        }
+
+        .content .courseimage,
+        .content > .d-flex:not(:has(.courseimage))::before {
+            display: block;
+            order: -1;
+            width: 100% !important;
+            height: 10rem !important;
+            margin: 0 !important;
+            overflow: hidden;
+        }
+
+        .content .courseimage img {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: none !important;
+            max-height: none !important;
+            object-fit: cover;
+            border-radius: 0;
+        }
+
+        // Courses without an image get a branded block instead of an empty gap.
+        .content > .d-flex:not(:has(.courseimage))::before {
+            content: "";
+            background: var(--instracta-gradient);
+        }
+
+        .content > .d-flex > .flex-grow-1 {
+            order: 1;
+            padding: .1rem 1.25rem 1.25rem;
+        }
+
+        .info {
+            order: 0;
+            padding-top: 1rem;
+        }
+
+        .summary,
+        .summary p {
+            color: var(--instracta-text-muted);
+            font-size: .95rem;
+            line-height: 1.6;
+        }
+    }
+}
+
+// List: a clean row per course.
+html[data-i-ci="list"] {
+    .coursebox .courseimage {
+        width: 12rem;
+        height: 7.5rem;
+    }
+
+    .coursebox .content > .d-flex {
+        align-items: flex-start;
+    }
+
+    @media (max-width: 575.98px) {
+        .coursebox .content > .d-flex {
+            flex-direction: column;
+        }
+
+        .coursebox .courseimage {
+            width: 100%;
+            height: 9rem;
+        }
+    }
+}
+
+// Compact: titles only, for large catalogues.
+html[data-i-ci="compact"] {
+    .coursebox {
+        border-radius: var(--instracta-r-md);
+
+        .info {
+            padding: .7rem 1rem;
+        }
+
+        .coursename {
+            font-size: 1rem;
+        }
+
+        .content {
+            display: none;
+        }
+    }
+}
+
+// ---- Enrolment landing -------------------------------------------------------------------------
+
+#page-enrol-index,
+#page-course-info {
+    .generalbox,
+    .box.generalbox {
+        padding: 1.5rem;
+        border: 1px solid var(--instracta-border);
+        border-radius: var(--instracta-r-lg);
+        background: var(--instracta-surface);
+    }
+
+    .courseinfo,
+    .coursebox {
+        max-width: 52rem;
+    }
+}

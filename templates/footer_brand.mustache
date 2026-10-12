@@ -1,0 +1,58 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_instracta/footer_brand
+
+    Instracta brand footer.
+
+    Example context (json):
+    {
+        "sitename": "Moodle",
+        "hasabout": true,
+        "about": "<p>About text</p>",
+        "columns": [{"title": "Links", "links": [{"text": "Home", "url": "#"}]}],
+        "hassocial": true,
+        "social": [{"url": "#", "icon": "facebook-f", "name": "Facebook"}],
+        "copyright": "2026 Moodle"
+    }
+}}
+<div class="instracta-footer" data-region="instracta-footer">
+    <div class="instracta-footer__inner">
+        <div class="instracta-footer__grid">
+            <div>
+                <div class="instracta-footer__brand">{{{ sitename }}}</div>
+                {{#hasabout}}<div class="instracta-footer__about">{{{ about }}}</div>{{/hasabout}}
+                {{#hassocial}}
+                <div class="instracta-footer__social">
+                    {{#social}}<a href="{{{ url }}}" aria-label="{{ name }}" rel="noopener"><i class="fa-brands fa-{{ icon }}" aria-hidden="true"></i></a>{{/social}}
+                </div>
+                {{/hassocial}}
+            </div>
+            {{#columns}}
+            <nav aria-label="{{ title }}">
+                {{#title}}<h3>{{ title }}</h3>{{/title}}
+                <ul>
+                    {{#links}}<li><a href="{{{ url }}}">{{ text }}</a></li>{{/links}}
+                </ul>
+            </nav>
+            {{/columns}}
+        </div>
+        <div class="instracta-footer__bottom">
+            <span>{{ copyright }}</span>
+        </div>
+    </div>
+</div>

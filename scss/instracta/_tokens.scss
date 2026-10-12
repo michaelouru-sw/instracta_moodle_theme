@@ -1,0 +1,60 @@
+// Design tokens as CSS custom properties, so they can be reused by pages, the builder preview
+// and admin custom CSS without recompiling.
+
+:root {
+    --instracta-primary: #{$instracta-primary};
+    --instracta-primary-rgb: #{red($instracta-primary)}, #{green($instracta-primary)}, #{blue($instracta-primary)};
+    --instracta-primary-hover: #{if(lightness($instracta-primary) < 32%, lighten($instracta-primary, 9%), darken($instracta-primary, 7%))};
+    --instracta-on-primary: #fff;
+    --instracta-heading: #{if(lightness($instracta-primary) < 30%, $instracta-primary, #0f172a)};
+    --instracta-primary-soft: #{mix(#fff, $instracta-primary, 90%)};
+    --instracta-primary-softer: #{mix(#fff, $instracta-primary, 95%)};
+    --instracta-accent: #{$instracta-accent};
+    --instracta-accent-rgb: #{red($instracta-accent)}, #{green($instracta-accent)}, #{blue($instracta-accent)};
+    --instracta-grad-a: #{$instracta-grad-a};
+    --instracta-grad-b: #{$instracta-grad-b};
+    --instracta-gradient: linear-gradient(135deg, #{$instracta-grad-a} 0%, #{$instracta-grad-b} 100%);
+
+    --instracta-bg: #fff;
+    --instracta-surface: #fff;
+    --instracta-surface-2: #f5f7fa;
+    --instracta-text: #1f2a3d;
+    --instracta-text-muted: #566275;
+    --instracta-border: #e4e8ef;
+    --instracta-border-strong: #cdd5e0;
+    --instracta-ring: rgba(var(--instracta-primary-rgb), .35);
+    --instracta-dark-bg: #{mix(#050a14, $instracta-primary, 38%)};
+
+    --instracta-r-sm: #{$instracta-r-sm};
+    --instracta-r-md: #{$instracta-r-md};
+    --instracta-r-lg: #{$instracta-r-lg};
+    --instracta-r-xl: #{$instracta-r-xl};
+    --instracta-r-btn: #{$instracta-r-btn};
+
+    --instracta-shadow-sm: #{$instracta-shadow-sm};
+    --instracta-shadow-md: #{$instracta-shadow-md};
+    --instracta-shadow-lg: #{$instracta-shadow-lg};
+
+    --instracta-font-body: #{$instracta-font-body};
+    --instracta-font-heading: #{$instracta-font-heading};
+    --instracta-container: #{$instracta-container};
+    --instracta-nav-height: 4rem;
+    --instracta-font-content: #{$instracta-font-content};
+    --instracta-read-size: #{$instracta-read-size};
+    --instracta-read-lh: #{$instracta-read-lh};
+    --instracta-measure: #{$instracta-measure};
+    --instracta-ease: cubic-bezier(.2, .7, .2, 1);
+
+    color-scheme: light;
+}
+
+// Dark mode needs a lighter brand colour: navy disappears on a dark page.
+$instracta-primary-dk: hsl(hue($instracta-primary), if(saturation($instracta-primary) > 55%, saturation($instracta-primary), 55%), 68%);
+
+:root[data-instracta-theme="dark"] {
+    --instracta-primary: #{$instracta-primary-dk};
+    --instracta-primary-rgb: #{red($instracta-primary-dk)}, #{green($instracta-primary-dk)}, #{blue($instracta-primary-dk)};
+    --instracta-primary-hover: #{lighten($instracta-primary-dk, 8%)};
+    --instracta-on-primary: #0a0f1f;
+    --instracta-heading: #f3f5fb;
+}

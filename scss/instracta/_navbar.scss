@@ -1,0 +1,433 @@
+// Primary navbar: glass, solid or transparent-over-hero.
+
+.navbar.fixed-top {
+    --bs-navbar-padding-y: 0;
+    height: var(--instracta-nav-height);
+    border-bottom: 1px solid var(--instracta-border);
+    background: rgba(var(--instracta-surface-rgb, 255, 255, 255), .86) !important;
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    backdrop-filter: saturate(1.4) blur(14px);
+    transition: background-color .25s, box-shadow .25s, border-color .25s;
+
+    .navbar-brand {
+        font-family: var(--instracta-font-heading);
+        font-weight: 800;
+        font-size: 1.15rem;
+        letter-spacing: -.02em;
+        color: var(--instracta-text);
+
+        .logo {
+            max-height: 2.1rem;
+            width: auto;
+        }
+    }
+
+    align-items: center;
+
+    .primary-navigation,
+    .primary-navigation nav,
+    .primary-navigation .moremenu {
+        height: 100%;
+    }
+
+    .primary-navigation .moremenu {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    // Natural height on purpose: Moodle's "More" menu detects overflow by comparing this
+    // list's height with its parent, so it must be able to grow when the links wrap.
+    .primary-navigation .moremenu .nav,
+    .primary-navigation .moremenu ul {
+        align-items: center;
+        height: auto;
+        flex-wrap: wrap;
+    }
+
+    // Links are soft pills; the current page gets a tinted pill and an accent dot.
+    .primary-navigation .moremenu .nav,
+    .primary-navigation .moremenu ul {
+        align-items: center;
+        gap: .2rem;
+    }
+
+    .primary-navigation .nav-link,
+    .primary-navigation .nav-item .nav-link {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 2.5rem;
+        font-weight: 600;
+        font-size: .9375rem;
+        color: var(--instracta-text-muted);
+        border-radius: 999px;
+        padding: 0 1rem;
+        margin: 0;
+        border: 0 !important;
+        background: transparent;
+        transition: color .15s, background-color .15s;
+
+        &:hover,
+        &:focus-visible {
+            background: rgba(var(--instracta-primary-rgb), .08);
+            color: var(--instracta-heading);
+        }
+
+        &.active {
+            color: var(--instracta-primary);
+            background: rgba(var(--instracta-primary-rgb), .1);
+
+            &::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                bottom: .2rem;
+                width: .28rem;
+                height: .28rem;
+                margin-left: -.14rem;
+                border-radius: 50%;
+                background: var(--instracta-accent);
+            }
+        }
+    }
+
+    #usernavigation {
+        align-items: center;
+        gap: .15rem;
+        height: 100%;
+    }
+
+    .divider {
+        border-color: var(--instracta-border) !important;
+    }
+
+    // Round icon buttons for tools, notifications and messages.
+    #usernavigation .nav-link,
+    #usernavigation .btn,
+    .popover-region-toggle {
+        color: var(--instracta-text-muted);
+    }
+
+    #usernavigation .nav-link,
+    #usernavigation .popover-region-toggle,
+    #usernavigation .popover-region .nav-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 2.4rem;
+        height: 2.4rem;
+        padding: 0 .55rem;
+        border-radius: 999px;
+        transition: background-color .15s, color .15s;
+        position: relative;
+
+        &:hover,
+        &:focus-visible {
+            background: rgba(var(--instracta-primary-rgb), .1);
+            color: var(--instracta-primary);
+        }
+    }
+
+    .popover-region .count-container {
+        position: absolute;
+        top: .1rem;
+        right: .05rem;
+        min-width: 1.05rem;
+        height: 1.05rem;
+        padding: 0 .25rem;
+        font-size: .65rem;
+        line-height: 1.05rem;
+        font-weight: 700;
+        text-align: center;
+        border-radius: 999px;
+        background: var(--instracta-accent);
+        color: #1a1405;
+        box-shadow: 0 0 0 2px var(--instracta-surface);
+    }
+
+    // The user menu is a compact pill with the avatar.
+    .usermenu .dropdown-toggle,
+    .usermenu .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: .35rem;
+        height: 2.5rem;
+        padding: 0 .55rem 0 .3rem;
+        border: 1px solid var(--instracta-border);
+        border-radius: 999px;
+        background: var(--instracta-surface);
+
+        &:hover {
+            border-color: var(--instracta-border-strong);
+            background: rgba(var(--instracta-primary-rgb), .06);
+        }
+    }
+
+    .editmode-switch-form {
+        margin-left: .5rem;
+        padding-left: .85rem;
+        border-left: 1px solid var(--instracta-border);
+
+        label,
+        .form-check-label {
+            font-size: .8125rem;
+            font-weight: 600;
+            color: var(--instracta-text-muted);
+        }
+    }
+
+    .usermenu .avatar img,
+    .usermenu .userpicture {
+        box-shadow: none;
+    }
+}
+
+// Elevation once the page scrolls (class set by the theme module).
+body.instracta-scrolled .navbar.fixed-top {
+    box-shadow: 0 8px 24px -12px rgba(15, 23, 42, .25);
+    border-bottom-color: var(--instracta-border);
+}
+
+// Solid style.
+body.instracta-navbar-solid .navbar.fixed-top {
+    background: var(--instracta-surface) !important;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+// Transparent over the home page hero, solid again after scrolling.
+body.instracta-navbar-transparent.pagelayout-frontpage:not(.instracta-scrolled) .navbar.fixed-top {
+    background: transparent !important;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-bottom-color: transparent;
+
+    .navbar-brand,
+    .primary-navigation .nav-link,
+    #usernavigation .nav-link,
+    #usernavigation .btn,
+    .popover-region-toggle,
+    .navbar-toggler {
+        color: #fff;
+    }
+
+    .primary-navigation .nav-link:hover,
+    .primary-navigation .nav-link.active {
+        background: transparent;
+        color: #fff;
+    }
+}
+
+// Colour mode toggle button (injected by the theme module).
+.instracta-mode-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    align-self: center;
+    margin: 0 .25rem;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--instracta-text-muted);
+    cursor: pointer;
+    transition: background-color .15s, color .15s, transform .25s var(--instracta-ease);
+
+    &:hover {
+        background: rgba(var(--instracta-primary-rgb), .1);
+        color: var(--instracta-primary);
+    }
+
+    &:active {
+        transform: rotate(25deg) scale(.92);
+    }
+
+    .instracta-icon-dark { display: none; }
+}
+
+:root[data-instracta-theme="dark"] .instracta-mode-toggle {
+    .instracta-icon-light { display: none; }
+    .instracta-icon-dark { display: inline; }
+}
+
+body.instracta-navbar-transparent.pagelayout-frontpage:not(.instracta-scrolled) .instracta-mode-toggle {
+    color: #fff;
+}
+
+// The mobile menu button follows the colour mode.
+.navbar-toggler {
+    color: var(--instracta-text);
+    border-color: transparent;
+
+    .navbar-toggler-icon {
+        filter: none;
+    }
+}
+
+:root[data-instracta-theme="dark"] .navbar-toggler .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+// Dropdown menus (user menu, more menu, primary sub menus): rounded, light and roomy.
+.navbar .dropdown-menu,
+.moremenu .dropdown-menu {
+    border: 1px solid var(--instracta-border);
+    border-radius: var(--instracta-r-lg);
+    background: var(--instracta-surface);
+    box-shadow: var(--instracta-shadow-lg, 0 24px 48px -16px rgba(15, 23, 42, .28));
+    padding: .4rem;
+    margin-top: .5rem;
+    min-width: 13rem;
+
+    .dropdown-item {
+        border-radius: var(--instracta-r-sm);
+        padding: .5rem .75rem;
+        font-weight: 500;
+        color: var(--instracta-text);
+
+        &:hover,
+        &:focus {
+            background: rgba(var(--instracta-primary-rgb), .09);
+            color: var(--instracta-heading);
+        }
+
+        &.active,
+        &:active {
+            background: rgba(var(--instracta-primary-rgb), .14);
+            color: var(--instracta-primary);
+        }
+    }
+
+    .dropdown-divider {
+        border-color: var(--instracta-border);
+        margin: .35rem .25rem;
+    }
+
+    .carousel-item,
+    .dropdown-header {
+        color: var(--instracta-text-muted);
+    }
+}
+
+// Mobile: the collapsed menu becomes a tidy sheet.
+@media (max-width: 991.98px) {
+    .navbar.fixed-top .primary-navigation .nav-link {
+        height: 2.75rem;
+        width: 100%;
+    }
+}
+
+// Notification and message popovers.
+.popover-region-container {
+    border: 1px solid var(--instracta-border);
+    border-radius: var(--instracta-r-lg);
+    background: var(--instracta-surface);
+    box-shadow: var(--instracta-shadow-lg);
+    overflow: hidden;
+    margin-top: .5rem;
+
+    .popover-region-header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: .85rem 1rem;
+        height: auto;
+        border-bottom: 1px solid var(--instracta-border);
+        background: transparent;
+    }
+
+    .popover-region-header-text {
+        font-family: var(--instracta-font-heading);
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--instracta-heading);
+    }
+
+    .popover-region-header-actions {
+        display: flex;
+        align-items: center;
+        gap: .15rem;
+    }
+
+    .popover-region-header-actions .btn,
+    .popover-region-header-actions a {
+        border-radius: 999px;
+        color: var(--instracta-text-muted);
+    }
+
+    .content-item-container {
+        border-color: var(--instracta-border);
+    }
+
+    .popover-region-footer-container {
+        border-top: 1px solid var(--instracta-border);
+        background: var(--instracta-surface-2);
+
+        a {
+            font-weight: 600;
+            color: var(--instracta-primary);
+        }
+    }
+
+    .empty-message {
+        padding: 2.5rem 1rem;
+        color: var(--instracta-text-muted);
+    }
+}
+
+// Primary navigation in the mobile drawer.
+.drawer-primary {
+    background: var(--instracta-surface);
+
+    .list-group-item,
+    .nav-link {
+        border: 0;
+        border-radius: var(--instracta-r-md);
+        margin: .15rem .5rem;
+        padding: .7rem .85rem;
+        font-weight: 600;
+        color: var(--instracta-text);
+        background: transparent;
+
+        &:hover {
+            background: rgba(var(--instracta-primary-rgb), .08);
+        }
+
+        &.active {
+            background: rgba(var(--instracta-primary-rgb), .12);
+            color: var(--instracta-primary);
+            box-shadow: inset 3px 0 0 var(--instracta-accent);
+        }
+    }
+}
+
+// Medium screens: tighter links, and the edit switch keeps only its toggle, so the bar never wraps.
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .navbar.fixed-top {
+        .primary-navigation .nav-link,
+        .primary-navigation .nav-item .nav-link {
+            padding: 0 .65rem !important;
+            font-size: .875rem;
+        }
+
+        .primary-navigation .moremenu .nav {
+            gap: 0;
+        }
+
+        .editmode-switch-form {
+            margin-left: .25rem;
+            padding-left: .5rem;
+
+            label,
+            .form-check-label {
+                display: none;
+            }
+        }
+
+        .navbar-brand {
+            margin-right: .5rem;
+        }
+    }
+}

@@ -1,0 +1,169 @@
+// Login: split screen with a brand panel and the form on a clean card.
+
+body.pagelayout-login {
+    background: var(--instracta-bg);
+
+    #page-wrapper,
+    #page {
+        min-height: 100vh;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: none;
+    }
+
+    #page-content,
+    #region-main-box,
+    #region-main {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+    }
+
+    #page-footer,
+    .navbar.fixed-top {
+        display: none;
+    }
+}
+
+body.pagelayout-login #page.instracta-login,
+.instracta-login {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    min-height: 100vh;
+
+    @media (max-width: 991.98px) {
+        grid-template-columns: 1fr;
+    }
+
+    &__panel {
+        position: relative;
+        min-height: 100%;
+        gap: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: clamp(2rem, 5vw, 4.5rem);
+        color: #fff;
+        overflow: hidden;
+        isolation: isolate;
+        background:
+            radial-gradient(48rem 30rem at 100% 0%, rgba(255, 255, 255, .2), transparent 60%),
+            radial-gradient(36rem 24rem at 0% 100%, rgba(var(--instracta-accent-rgb), .45), transparent 60%),
+            var(--instracta-gradient);
+
+        &.has-bg {
+            background: var(--instracta-dark-bg) var(--instracta-login-bg) center / cover no-repeat;
+
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(160deg, rgba(var(--instracta-primary-rgb), .78), rgba(8, 12, 28, .82));
+                z-index: -1;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            min-height: 14rem;
+            padding: 2rem 1.5rem;
+            overflow: visible;
+        }
+    }
+
+    &__brand {
+        display: flex;
+        align-items: center;
+        gap: .75rem;
+        font-family: var(--instracta-font-heading);
+        font-weight: 800;
+        font-size: 1.3rem;
+        letter-spacing: -.02em;
+
+        img {
+            max-height: 2.6rem;
+            width: auto;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+    }
+
+    &__headline {
+        font-family: var(--instracta-font-heading);
+        font-size: clamp(2rem, 4.4vw, 3.4rem);
+        line-height: 1.06;
+        font-weight: 800;
+        letter-spacing: -.035em;
+        margin: 0 0 1rem;
+        max-width: 28rem;
+        text-wrap: balance;
+        color: #fff;
+    }
+
+    &__sub {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        max-width: 28rem;
+        margin: 0;
+        opacity: .9;
+
+        @media (max-width: 991.98px) {
+            display: none;
+        }
+    }
+
+    &__foot {
+        font-size: .8rem;
+        opacity: .7;
+
+        @media (max-width: 991.98px) {
+            display: none;
+        }
+    }
+
+    &__form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(1.5rem, 4vw, 3rem);
+        background: var(--instracta-bg);
+    }
+
+    .login-wrapper {
+        width: 100%;
+        max-width: 28rem;
+        margin: 0 auto;
+    }
+
+    .login-container {
+        background: var(--instracta-surface);
+        border: 1px solid var(--instracta-border);
+        border-radius: var(--instracta-r-xl);
+        box-shadow: var(--instracta-shadow-lg);
+        padding: clamp(1.5rem, 4vw, 2.5rem);
+    }
+
+    .loginform .form-control,
+    .login-form .form-control {
+        padding: .75rem 1rem;
+    }
+
+    .login-heading,
+    .login-container h2 {
+        font-weight: 800;
+        letter-spacing: -.02em;
+    }
+
+    .btn-primary#loginbtn,
+    #loginbtn {
+        width: 100%;
+        padding: .8rem 1rem;
+    }
+
+    .login-languagemenu {
+        text-align: center;
+        margin-top: 1rem;
+    }
+}

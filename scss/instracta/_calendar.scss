@@ -1,0 +1,410 @@
+// Calendar: a calm month grid with today highlighted and events as colour-coded chips.
+// Applies to the full calendar page and to the calendar block on the dashboard.
+
+body.path-calendar {
+    #region-main {
+        max-width: none;
+    }
+
+    #region-main > h2:first-of-type {
+        margin-bottom: 1rem;
+    }
+}
+
+// Toolbar: view switcher, course filter and "New event".
+.calendar-controls + *,
+.calendarwrapper {
+    --cal-line: var(--instracta-border);
+}
+
+.calendar-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: .5rem 0 1rem;
+
+    .hide {
+        display: none;
+    }
+
+    .current {
+        order: 0;
+        flex: 1 1 auto;
+        margin: 0;
+        text-align: center;
+        font-family: var(--instracta-font-heading);
+        font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+        font-weight: 800;
+        letter-spacing: -.02em;
+        color: var(--instracta-heading);
+    }
+
+    .arrow_link {
+        display: inline-flex;
+        align-items: center;
+        gap: .4rem;
+        height: 2.5rem;
+        padding: 0 1rem;
+        border: 1px solid var(--instracta-border);
+        border-radius: 999px;
+        background: var(--instracta-surface);
+        color: var(--instracta-text);
+        font-weight: 600;
+        font-size: .875rem;
+        text-decoration: none;
+        transition: border-color .15s, background-color .15s, color .15s;
+
+        &:hover {
+            border-color: var(--instracta-primary);
+            background: rgba(var(--instracta-primary-rgb), .07);
+            color: var(--instracta-primary);
+        }
+
+        &.previous {
+            order: -1;
+        }
+
+        .arrow {
+            font-size: .7rem;
+        }
+    }
+
+    // The arrows keep their text on wide screens only.
+    @media (max-width: 575.98px) {
+        .arrow_text {
+            display: none;
+        }
+
+        .arrow_link {
+            padding: 0 .85rem;
+        }
+    }
+}
+
+// The grid sits on a rounded card.
+.calendarwrapper .calendarmonth,
+.calendarmonth {
+    border: 1px solid var(--instracta-border);
+    border-radius: var(--instracta-r-xl);
+    background: var(--instracta-surface);
+    box-shadow: var(--instracta-shadow-sm);
+    overflow: hidden;
+
+    table.calendartable,
+    table.calendarmonth {
+        width: 100%;
+        margin: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+        table-layout: fixed;
+        border: 0;
+    }
+
+    thead th {
+        padding: .8rem .5rem;
+        text-align: left;
+        font-size: .72rem;
+        font-weight: 700;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        color: var(--instracta-text-muted);
+        background: var(--instracta-surface-2);
+        border: 0;
+        border-bottom: 1px solid var(--instracta-border);
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+    }
+
+    td.day,
+    td.dayblank {
+        height: 7.25rem;
+        padding: .45rem .5rem;
+        vertical-align: top;
+        border: 0;
+        border-right: 1px solid var(--instracta-border);
+        border-bottom: 1px solid var(--instracta-border);
+        background: transparent;
+        transition: background-color .15s;
+
+        &:last-child {
+            border-right: 0;
+        }
+    }
+
+    tr:last-child td {
+        border-bottom: 0;
+    }
+
+    td.dayblank {
+        background: var(--instracta-surface-2);
+        opacity: .55;
+    }
+
+    td.weekend {
+        background: rgba(var(--instracta-primary-rgb), .03);
+    }
+
+    td.day.clickable:hover {
+        background: rgba(var(--instracta-primary-rgb), .07);
+        cursor: pointer;
+    }
+
+    // Day number: a plain figure, a filled circle for today.
+    // Moodle sizes the number with a 30px box and padding tricks; reset them so any number fits.
+    td .day-number-circle {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        width: auto !important;
+        min-width: 1.85rem;
+        height: 1.85rem !important;
+        line-height: 1 !important;
+        margin-bottom: .25rem;
+        padding: 0 .35rem;
+        border-radius: 999px;
+
+        .day-number {
+            display: inline !important;
+            width: auto !important;
+            padding: 0 !important;
+            position: static !important;
+
+            &::before {
+                display: none !important;
+            }
+        }
+
+        font-weight: 600;
+        font-size: .875rem;
+        color: var(--instracta-text);
+    }
+
+    a.aalink.day,
+    a.day {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    td.today .day-number-circle {
+        background: var(--instracta-primary);
+        color: var(--instracta-on-primary, #fff);
+        box-shadow: 0 6px 14px -6px rgba(var(--instracta-primary-rgb), .7);
+    }
+
+    td.today {
+        background: rgba(var(--instracta-primary-rgb), .06);
+    }
+
+    [data-region="day-content"] ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: .2rem;
+    }
+
+    // Event chips, coloured by event type.
+    [data-region="event-item"] {
+        --cal-c: var(--instracta-accent);
+        margin: 0;
+
+        &[data-event-eventtype="course"],
+        &[data-event-eventtype="open"],
+        &[data-event-eventtype="due"],
+        &[data-event-eventtype="close"] {
+            --cal-c: var(--instracta-primary);
+        }
+
+        &[data-event-eventtype="site"] {
+            --cal-c: #0d9488;
+        }
+
+        &[data-event-eventtype="group"] {
+            --cal-c: #7c3aed;
+        }
+
+        &[data-event-eventtype="category"] {
+            --cal-c: #d97706;
+        }
+
+        > a {
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            min-width: 0;
+            padding: .22rem .5rem;
+            border-radius: var(--instracta-r-sm);
+            border-left: 3px solid var(--cal-c);
+            background: color-mix(in srgb, var(--cal-c) 14%, transparent);
+            color: var(--instracta-text);
+            font-size: .78rem;
+            font-weight: 600;
+            line-height: 1.25;
+            text-decoration: none;
+            transition: background-color .15s, transform .15s;
+
+            &:hover {
+                background: color-mix(in srgb, var(--cal-c) 26%, transparent);
+                transform: translateX(1px);
+            }
+        }
+
+        .calendar-circle {
+            display: none;
+        }
+
+        .eventname {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    [data-action="view-more-events"] a {
+        font-size: .75rem;
+        font-weight: 700;
+        color: var(--instracta-primary);
+    }
+}
+
+// Mobile: day cells shrink and events become dots.
+@media (max-width: 767.98px) {
+    .calendarmonth {
+        td.day,
+        td.dayblank {
+            height: 3.6rem;
+            padding: .25rem;
+            text-align: center;
+        }
+
+        thead th {
+            text-align: center;
+            padding: .6rem 0;
+            font-size: .65rem;
+            letter-spacing: 0;
+        }
+
+        .day-number-circle {
+            min-width: 1.6rem;
+            height: 1.6rem;
+        }
+
+        td.hasevent .day-number-circle {
+            background-image: linear-gradient(var(--instracta-accent), var(--instracta-accent));
+            background-repeat: no-repeat;
+            background-size: 1rem 3px;
+            background-position: center calc(100% - 2px);
+        }
+
+        td.today.hasevent .day-number-circle {
+            background-image: none;
+        }
+    }
+}
+
+// Toolbar controls above the grid.
+.calendar-controls ~ .calendarmonth,
+.maincalendar .header-maincontent,
+.calendarwrapper + .footer-content-debugging {
+    margin-top: 0;
+}
+
+.maincalendar {
+    .calendar-filter,
+    .filters,
+    .calendar_filters {
+        gap: .5rem;
+    }
+
+    .btn[data-action="new-event-button"] {
+        border-radius: 999px;
+        padding-left: 1.1rem;
+        padding-right: 1.1rem;
+        font-weight: 700;
+    }
+
+    .footer-content,
+    .bottom {
+        margin-top: 1rem;
+        font-size: .875rem;
+    }
+}
+
+// Day and upcoming views.
+.calendar_event_user,
+.calendar_event_course,
+.calendar_event_site,
+.calendar_event_group,
+.calendar_event_category {
+    border-radius: 50%;
+}
+
+.calendarwrapper .event,
+.eventlist .event {
+    border: 1px solid var(--instracta-border);
+    border-radius: var(--instracta-r-lg);
+    background: var(--instracta-surface);
+    box-shadow: none;
+    margin-bottom: .75rem;
+
+    .card-header,
+    .card-body {
+        background: transparent;
+        border-color: var(--instracta-border);
+    }
+}
+
+// Calendar block (dashboard, side drawer): quieter grid.
+.block_calendar_month {
+    .calendarmonth {
+        box-shadow: none;
+        border-radius: var(--instracta-r-lg);
+
+        td.day,
+        td.dayblank {
+            height: 2.6rem;
+            padding: .15rem;
+            text-align: center;
+        }
+
+        [data-region="day-content"] {
+            display: none;
+        }
+
+        td.hasevent .day-number-circle {
+            background-image: linear-gradient(var(--instracta-accent), var(--instracta-accent));
+            background-repeat: no-repeat;
+            background-size: 1rem 3px;
+            background-position: center calc(100% - 2px);
+        }
+
+        td.today.hasevent .day-number-circle {
+            background-image: none;
+        }
+    }
+
+    .calendar-controls .current {
+        font-size: 1.05rem;
+    }
+
+    .calendarmonth td.day,
+    .calendarmonth td.dayblank {
+        height: 2.75rem !important;
+        padding: .15rem !important;
+
+        > div {
+            min-height: 0 !important;
+            height: auto !important;
+        }
+    }
+
+    .calendar-controls .arrow_link {
+        padding: 0 .6rem;
+        height: 2rem;
+    }
+}

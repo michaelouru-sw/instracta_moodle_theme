@@ -1,0 +1,29 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_instracta/section
+
+    Instracta page builder template.
+
+    Example context (json):
+    {}
+}}
+<section id="{{anchor}}" class="{{classes}}" data-instracta-section="{{id}}" data-instracta-type="{{type}}"{{#vars}} style="{{vars}}"{{/vars}}{{#previewlabel}} data-instracta-label="{{previewlabel}}"{{/previewlabel}}{{#hiddenlabel}} data-instracta-hidden="{{hiddenlabel}}"{{/hiddenlabel}}>
+    <div class="instracta-sec__inner{{#contained}} instracta-container{{/contained}}{{#wide}} instracta-container instracta-container--wide{{/wide}}">
+        {{{inner}}}
+    </div>
+</section>

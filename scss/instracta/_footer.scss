@@ -1,0 +1,112 @@
+// Brand footer: rendered above Moodle's standard footer row.
+
+.instracta-footer {
+    margin-top: 3rem;
+    background: var(--instracta-dark-bg);
+    color: rgba(255, 255, 255, .72);
+    border-top: 1px solid rgba(255, 255, 255, .06);
+
+    a {
+        color: rgba(255, 255, 255, .78);
+        text-decoration: none;
+
+        &:hover {
+            color: #fff;
+        }
+    }
+
+    &__inner {
+        max-width: var(--instracta-container);
+        margin: 0 auto;
+        padding: 3.5rem 1.5rem 2rem;
+    }
+
+    &__grid {
+        display: grid;
+        gap: 2.5rem;
+        grid-template-columns: 1.6fr repeat(3, 1fr);
+
+        @media (max-width: 991.98px) {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        @media (max-width: 575.98px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__brand {
+        font-family: var(--instracta-font-heading);
+        font-weight: 800;
+        font-size: 1.25rem;
+        color: #fff;
+        margin-bottom: .75rem;
+    }
+
+    &__about {
+        max-width: 28rem;
+        line-height: 1.65;
+        font-size: .9rem;
+    }
+
+    h3,
+    .instracta-footer__title {
+        font-size: .75rem;
+        text-transform: uppercase;
+        letter-spacing: .1em;
+        color: #fff;
+        margin-bottom: 1rem;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            margin-bottom: .55rem;
+            font-size: .9rem;
+        }
+    }
+
+    &__social {
+        display: flex;
+        gap: .5rem;
+        margin-top: 1.25rem;
+
+        a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .08);
+            transition: background-color .15s, transform .15s;
+
+            &:hover {
+                background: var(--instracta-primary);
+                transform: translateY(-2px);
+            }
+        }
+    }
+
+    &__bottom {
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, .08);
+        font-size: .8125rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: .75rem 1.5rem;
+        justify-content: space-between;
+    }
+}
+
+// Moodle's own footer row sits quietly beneath the brand footer.
+#page-footer {
+    background: transparent;
+    border-top: 0;
+    color: var(--instracta-text-muted);
+    font-size: .8125rem;
+}

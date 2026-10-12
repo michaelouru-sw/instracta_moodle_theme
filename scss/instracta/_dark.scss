@@ -1,0 +1,181 @@
+// Dark mode. Boost uses Bootstrap CSS variables for most surfaces, so overriding them covers the
+// bulk of core; the rules below handle components that use compiled constants.
+
+:root[data-instracta-theme="dark"] {
+    color-scheme: dark;
+
+    --instracta-bg: #0a0f1f;
+    --instracta-surface: #121a30;
+    --instracta-surface-rgb: 18, 26, 48;
+    --instracta-surface-2: #182243;
+    --instracta-text: #e8ecf6;
+    --instracta-text-muted: #9aa6bf;
+    --instracta-border: rgba(255, 255, 255, .09);
+    --instracta-border-strong: rgba(255, 255, 255, .18);
+    --instracta-primary-soft: color-mix(in srgb, var(--instracta-primary) 22%, #0a0f1f);
+    --instracta-primary-softer: color-mix(in srgb, var(--instracta-primary) 12%, #0a0f1f);
+    --instracta-dark-bg: #060a16;
+    --instracta-shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+    --instracta-shadow-md: 0 8px 20px -6px rgba(0, 0, 0, .55);
+    --instracta-shadow-lg: 0 24px 48px -16px rgba(0, 0, 0, .7);
+
+    --bs-body-bg: #0a0f1f;
+    --bs-body-bg-rgb: 10, 15, 31;
+    --bs-body-color: #e8ecf6;
+    --bs-body-color-rgb: 232, 236, 246;
+    --bs-emphasis-color: #fff;
+    --bs-secondary-color: #9aa6bf;
+    --bs-secondary-bg: #182243;
+    --bs-tertiary-bg: #121a30;
+    --bs-border-color: rgba(255, 255, 255, .12);
+    --bs-heading-color: #f3f5fb;
+    --bs-link-color: #8ab4ff;
+    --bs-gray-100: #182243;
+    --bs-gray-200: #1d2850;
+    --bs-gray-300: #2a3560;
+    --bs-gray-400: #3a4673;
+    --bs-gray-500: #7d89a8;
+    --bs-gray-600: #9aa6bf;
+    --bs-gray-700: #bdc6da;
+    --bs-gray-800: #d8deec;
+    --bs-gray-900: #eef1f8;
+
+    body,
+    #page,
+    #page.drawers .main-inner,
+    #page-content {
+        background-color: var(--instracta-bg);
+        color: var(--instracta-text);
+    }
+
+    .navbar.fixed-top {
+        background: rgba(10, 15, 31, .72) !important;
+    }
+
+    body.instracta-navbar-solid .navbar.fixed-top {
+        background: var(--instracta-surface) !important;
+    }
+
+    .bg-white,
+    .bg-body,
+    .bg-light,
+    .card,
+    .list-group-item,
+    .modal-content,
+    .dropdown-menu,
+    .popover,
+    .drawer,
+    .block,
+    .generaltable,
+    .table,
+    .form-control,
+    .form-select,
+    .custom-select,
+    .input-group-text,
+    .page-link,
+    .tab-content,
+    .course-section,
+    .activity-item,
+    .editor_atto_content_wrap,
+    .moreless-actions,
+    #page-footer {
+        background-color: var(--instracta-surface);
+        color: var(--instracta-text);
+        border-color: var(--instracta-border);
+    }
+
+    .table > :not(caption) > * > * {
+        background-color: transparent;
+        color: var(--instracta-text);
+        border-bottom-color: var(--instracta-border);
+    }
+
+    .text-dark,
+    .text-body,
+    .text-black,
+    .card-title,
+    .dropdown-item,
+    .nav-link {
+        color: var(--instracta-text) !important;
+    }
+
+    .text-muted,
+    .text-secondary,
+    .small.text-muted {
+        color: var(--instracta-text-muted) !important;
+    }
+
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+        background: var(--instracta-primary-soft);
+        color: #fff !important;
+    }
+
+    .navbar-brand,
+    .primary-navigation .nav-link {
+        color: var(--instracta-text) !important;
+    }
+
+    .primary-navigation .nav-link:hover,
+    .primary-navigation .nav-link.active {
+        color: #fff !important;
+    }
+
+    .btn-secondary,
+    .btn-outline-secondary {
+        --bs-btn-color: var(--instracta-text);
+        --bs-btn-bg: var(--instracta-surface-2);
+        --bs-btn-border-color: var(--instracta-border-strong);
+        --bs-btn-hover-bg: var(--instracta-surface);
+    }
+
+    .form-control::placeholder {
+        color: #66728f;
+    }
+
+    hr,
+    .border,
+    .border-top,
+    .border-bottom {
+        border-color: var(--instracta-border) !important;
+    }
+
+    .alert-info,
+    .alert-success,
+    .alert-warning,
+    .alert-danger {
+        background: var(--instracta-surface-2);
+        color: var(--instracta-text);
+    }
+
+    .badge.bg-light,
+    .badge.text-bg-light {
+        background: var(--instracta-surface-2) !important;
+        color: var(--instracta-text) !important;
+    }
+
+    .instracta-delta--up { color: #4ade80; }
+    .instracta-delta--down { color: #f87171; }
+
+    .instracta-sec:not(.instracta-on-dark) .instracta-btn-ghost {
+        color: #fff;
+        border-color: rgba(255, 255, 255, .45);
+    }
+
+    .instracta-hero__search {
+        background: var(--instracta-surface);
+        color: var(--instracta-text);
+
+        input {
+            color: var(--instracta-text);
+        }
+    }
+
+    img.logo {
+        filter: brightness(0) invert(1);
+    }
+
+    .userpicture {
+        box-shadow: 0 0 0 2px var(--instracta-surface), 0 0 0 3px var(--instracta-border);
+    }
+}

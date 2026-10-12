@@ -1,0 +1,248 @@
+// Site administration: card based settings, a full width workspace and a sticky save bar.
+
+body.path-admin {
+    #page.drawers .main-inner,
+    #topofscroll.main-inner,
+    #topofscroll {
+        max-width: var(--instracta-container, 1280px) !important;
+    }
+
+    #region-main > h2:first-of-type,
+    [role="main"] > h2:first-of-type {
+        margin: .5rem 0 1.25rem;
+        font-size: clamp(1.5rem, 2.4vw, 2rem);
+        font-weight: 800;
+    }
+
+    // Category pages: sub-categories become a grid of link tiles.
+    #adminsettings > fieldset,
+    #adminsettings .settingsform > fieldset {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+        gap: .85rem;
+        min-width: 0;
+        border: 0;
+        padding: 0;
+        margin: 0;
+
+        > .clearer {
+            display: none;
+        }
+
+        > h3 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        > h3 a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            height: 100%;
+            padding: 1.1rem 1.25rem;
+            border: 1px solid var(--instracta-border);
+            border-radius: var(--instracta-r-lg);
+            background: var(--instracta-surface);
+            box-shadow: var(--instracta-shadow-sm);
+            color: var(--instracta-heading);
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform .18s var(--instracta-ease), box-shadow .18s, border-color .18s;
+
+            &::after {
+                content: "\2192";
+                color: var(--instracta-accent);
+                font-weight: 800;
+                transition: transform .18s;
+            }
+
+            &:hover {
+                transform: translateY(-2px);
+                border-color: var(--instracta-primary);
+                box-shadow: var(--instracta-shadow-md);
+            }
+
+            &:hover::after {
+                transform: translateX(4px);
+            }
+        }
+
+        > fieldset.adminsettings,
+        > .form-item,
+        > .alert,
+        > .row,
+        > p,
+        > div {
+            grid-column: 1 / -1;
+        }
+    }
+
+    // Settings group: one card.
+    fieldset.adminsettings,
+    #adminsettings .settingsform > fieldset {
+        min-width: 0;
+        padding: .5rem clamp(.85rem, 3vw, 1.5rem);
+        border: 1px solid var(--instracta-border);
+        border-radius: var(--instracta-r-xl);
+        background: var(--instracta-surface);
+        box-shadow: var(--instracta-shadow-sm);
+    }
+
+    #adminsettings h3:not(:has(a)),
+    #adminsettings h3.main,
+    .adminpagetitle {
+        margin: 1.75rem 0 .75rem;
+        padding-left: .85rem;
+        border-left: 4px solid var(--instracta-accent);
+        font-size: 1.15rem;
+        font-weight: 800;
+    }
+
+    // One setting per row: label rail on the left, control on the right.
+    .form-item.row {
+        --bs-gutter-x: 0;
+        display: grid;
+        grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr);
+        gap: 1.5rem;
+        margin: 0;
+        padding: 1.1rem .25rem;
+        border-bottom: 1px solid var(--instracta-border);
+
+        &:last-child {
+            border-bottom: 0;
+        }
+
+        > .form-label,
+        > .form-setting {
+            min-width: 0;
+            width: auto;
+            max-width: none;
+            flex: none;
+            padding: 0;
+        }
+
+        > .form-label {
+            text-align: left !important;
+        }
+
+        > .form-label label {
+            font-weight: 700;
+            color: var(--instracta-heading);
+        }
+
+        .form-shortname {
+            display: inline-block !important;
+            margin-top: .35rem;
+            padding: .05rem .5rem;
+            border-radius: 999px;
+            background: var(--instracta-surface-2);
+            color: var(--instracta-text-muted) !important;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: .7rem !important;
+        }
+
+        .form-defaultinfo {
+            margin-top: .4rem;
+            font-size: .75rem;
+        }
+
+        .form-text {
+            max-width: 62ch;
+            color: var(--instracta-text-muted);
+            font-size: .875rem;
+            line-height: 1.55;
+        }
+
+        .form-control,
+        .form-select {
+            max-width: min(100%, 38rem);
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--instracta-primary);
+            box-shadow: 0 0 0 .2rem rgba(var(--instracta-primary-rgb), .15);
+        }
+
+        @media (max-width: 767.98px) {
+            grid-template-columns: minmax(0, 1fr);
+            gap: .5rem;
+        }
+    }
+
+    // Save bar sticks to the bottom of the window.
+    #adminsettings .row:has(> .offset-sm-3 .btn-primary),
+    #adminsettings > .row:last-child:has(.btn-primary) {
+        position: sticky;
+        bottom: 0;
+        z-index: 15;
+        display: block;
+        margin: 1.5rem -.5rem 0;
+        padding: .85rem 1.25rem;
+        border-top: 1px solid var(--instracta-border);
+        border-radius: var(--instracta-r-lg) var(--instracta-r-lg) 0 0;
+        background: color-mix(in srgb, var(--instracta-surface) 92%, transparent);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 -8px 24px rgba(8, 14, 28, .08);
+
+        > .offset-sm-3 {
+            margin: 0;
+            width: auto;
+        }
+
+        .btn-primary {
+            padding: .6rem 1.6rem;
+            border-radius: 999px;
+            font-weight: 700;
+        }
+    }
+
+    // Tables (plugins overview, environment, logs).
+    .admintable,
+    table.generaltable {
+        border: 1px solid var(--instracta-border);
+        border-radius: var(--instracta-r-lg);
+        overflow: hidden;
+        background: var(--instracta-surface);
+
+        thead th {
+            padding: .75rem 1rem;
+            background: var(--instracta-surface-2);
+            color: var(--instracta-text-muted);
+            font-size: .72rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: .7rem 1rem;
+            vertical-align: middle;
+        }
+
+        tbody tr:hover > * {
+            background: rgba(var(--instracta-primary-rgb), .04);
+        }
+    }
+
+    .adminpagepath {
+        display: flex;
+        gap: .35rem;
+        margin: -.5rem 0 .75rem 1.1rem;
+        padding: 0;
+        list-style: none;
+
+        li:not(:last-child)::after {
+            content: "\203A";
+            margin-left: .35rem;
+        }
+    }
+}
+
+body.path-admin .form-setting {
+    .defaultsnext,
+    select,
+    .form-select {
+        max-width: 100%;
+    }
+}

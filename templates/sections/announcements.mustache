@@ -1,0 +1,39 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_instracta/sections/announcements
+
+    Instracta page builder template.
+
+    Example context (json):
+    {}
+}}
+{{#hashead}}<header class="instracta-head instracta-head--center">{{> theme_instracta/sections/partial_head }}</header>{{/hashead}}
+{{#hasposts}}
+<div class="instracta-grid instracta-grid--3">
+    {{#posts}}
+    <a class="instracta-news" href="{{url}}">
+        {{#showdate}}<span class="instracta-news__date">{{date}}</span>{{/showdate}}
+        <h3 class="instracta-news__title">{{title}}</h3>
+        <p class="instracta-news__excerpt">{{excerpt}}</p>
+        <span class="instracta-link">{{#str}}readmore, theme_instracta{{/str}} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+    </a>
+    {{/posts}}
+</div>
+{{#hasforum}}<div class="instracta-more"><a class="btn btn-outline-primary" href="{{forumurl}}">{{#str}}allannouncements, theme_instracta{{/str}}</a></div>{{/hasforum}}
+{{/hasposts}}
+{{^hasposts}}<p class="instracta-empty">{{#str}}noannouncements, theme_instracta{{/str}}</p>{{/hasposts}}

@@ -1,0 +1,82 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_instracta/login
+
+    Instracta split-screen login page.
+
+    Example context (json):
+    {
+        "sitename": "Moodle",
+        "output": {
+            "doctype": "<!DOCTYPE html>",
+            "page_title": "Log in",
+            "favicon": "favicon.ico",
+            "main_content": "<h1>Login form</h1>"
+        },
+        "bodyattributes": "",
+        "headline": "Welcome back",
+        "subtext": "Log in to continue learning.",
+        "hasbg": false,
+        "homeurl": "/",
+        "haslogo": false,
+        "logourl": "",
+        "year": "2026"
+    }
+}}
+{{> theme_boost/head }}
+<body {{{ bodyattributes }}}>
+{{> core/local/toast/wrapper}}
+<div id="page-wrapper">
+    {{{ output.standard_top_of_body_html }}}
+    <div id="page" class="instracta-login">
+        <aside class="instracta-login__panel{{#hasbg}} has-bg{{/hasbg}}">
+            <div class="instracta-login__brand">
+                <a href="{{{ homeurl }}}">
+                    {{#haslogo}}<img src="{{{ logourl }}}" alt="{{{ sitename }}}">{{/haslogo}}
+                    {{^haslogo}}{{{ sitename }}}{{/haslogo}}
+                </a>
+            </div>
+            <div class="instracta-login__hero">
+                <h1 class="instracta-login__headline">{{ headline }}</h1>
+                <p class="instracta-login__sub">{{ subtext }}</p>
+            </div>
+            <div class="instracta-login__foot">&copy; {{ year }} {{{ sitename }}}</div>
+        </aside>
+        <main id="page-content" class="instracta-login__form">
+            <div id="region-main-box" class="w-100">
+                <div id="region-main" class="w-100">
+                    <div class="login-wrapper">
+                        <div class="login-container">
+                            {{{ output.main_content }}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    {{{ output.standard_after_main_region_html }}}
+    {{> theme_boost/footer }}
+</div>
+</body>
+</html>
+{{#js}}
+M.util.js_pending('theme_boost/loader');
+require(['theme_boost/loader'], function() {
+  M.util.js_complete('theme_boost/loader');
+});
+{{/js}}

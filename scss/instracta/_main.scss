@@ -1,0 +1,20 @@
+// Instracta design system. Compiled after Boost's default preset, so Bootstrap and Moodle core
+// styles exist and can be refined here. Variables ($instracta-*) are set by theme_instracta\tokens.
+
+@import "tokens";
+@import "base";
+@import "reading";
+@import "courses";
+@import "coursedesign";
+@import "readingtools";
+@import "navbar";
+@import "footer";
+@import "home";
+@import "login";
+@import "dashboard";
+@import "analytics";
+@import "calendar";
+@import "features";
+@import "admin";
+@import "motion";
+@import "dark";

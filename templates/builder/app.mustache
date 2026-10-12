@@ -1,0 +1,85 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_instracta/builder/app
+
+    Shell of the home page builder. The theme_instracta/builder AMD module fills every region.
+
+    Example context (json):
+    {
+        "previewurl": "https://example.org/theme/instracta/builder/preview.php",
+        "exiturl": "https://example.org/admin/settings.php?section=themesettinginstracta",
+        "viewurl": "https://example.org/"
+    }
+}}
+<div class="instracta-builder" data-region="instracta-builder">
+    <header class="lb-top">
+        <a class="lb-exit" href="{{{ exiturl }}}" data-action="exit">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            <span>{{#str}}b_exit, theme_instracta{{/str}}</span>
+        </a>
+        <div class="lb-title">
+            <strong>{{#str}}b_title, theme_instracta{{/str}}</strong>
+            <span class="lb-status" data-region="status" role="status" aria-live="polite"></span>
+        </div>
+        <div class="lb-devices" role="group" aria-label="{{#str}}b_device, theme_instracta{{/str}}">
+            <button type="button" class="lb-icon-btn is-active" data-action="device" data-device="desktop" aria-pressed="true" title="{{#str}}b_device_desktop, theme_instracta{{/str}}"><i class="fa-solid fa-desktop" aria-hidden="true"></i><span class="visually-hidden">{{#str}}b_device_desktop, theme_instracta{{/str}}</span></button>
+            <button type="button" class="lb-icon-btn" data-action="device" data-device="tablet" aria-pressed="false" title="{{#str}}b_device_tablet, theme_instracta{{/str}}"><i class="fa-solid fa-tablet-screen-button" aria-hidden="true"></i><span class="visually-hidden">{{#str}}b_device_tablet, theme_instracta{{/str}}</span></button>
+            <button type="button" class="lb-icon-btn" data-action="device" data-device="mobile" aria-pressed="false" title="{{#str}}b_device_mobile, theme_instracta{{/str}}"><i class="fa-solid fa-mobile-screen" aria-hidden="true"></i><span class="visually-hidden">{{#str}}b_device_mobile, theme_instracta{{/str}}</span></button>
+        </div>
+        <div class="lb-actions">
+            <button type="button" class="lb-icon-btn" data-action="undo" title="{{#str}}b_undo, theme_instracta{{/str}}" disabled><i class="fa-solid fa-rotate-left" aria-hidden="true"></i><span class="visually-hidden">{{#str}}b_undo, theme_instracta{{/str}}</span></button>
+            <button type="button" class="lb-icon-btn" data-action="redo" title="{{#str}}b_redo, theme_instracta{{/str}}" disabled><i class="fa-solid fa-rotate-right" aria-hidden="true"></i><span class="visually-hidden">{{#str}}b_redo, theme_instracta{{/str}}</span></button>
+            <span class="lb-sep" aria-hidden="true"></span>
+            <div class="lb-menu-wrap">
+                <button type="button" class="lb-icon-btn" data-action="more" aria-haspopup="true" aria-expanded="false" title="{{#str}}b_more, theme_instracta{{/str}}"><i class="fa-solid fa-ellipsis" aria-hidden="true"></i><span class="visually-hidden">{{#str}}b_more, theme_instracta{{/str}}</span></button>
+                <div class="lb-menu" data-region="more-menu" hidden>
+                    <a href="{{{ previewurl }}}" target="_blank" rel="noopener" role="menuitem"><i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i> {{#str}}b_preview_tab, theme_instracta{{/str}}</a>
+                    <a href="{{{ viewurl }}}" target="_blank" rel="noopener" role="menuitem"><i class="fa-solid fa-globe" aria-hidden="true"></i> {{#str}}b_view_live, theme_instracta{{/str}}</a>
+                    <a href="{{{ templatesurl }}}" role="menuitem"><i class="fa-solid fa-swatchbook" aria-hidden="true"></i> {{#str}}tpl_menu, theme_instracta{{/str}}</a>
+                    <button type="button" role="menuitem" data-action="discard"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> {{#str}}b_discard, theme_instracta{{/str}}</button>
+                    <button type="button" role="menuitem" data-action="reset"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> {{#str}}b_reset, theme_instracta{{/str}}</button>
+                </div>
+            </div>
+            <button type="button" class="lb-btn lb-btn--primary" data-action="publish"><i class="fa-solid fa-rocket" aria-hidden="true"></i> <span>{{#str}}b_publish, theme_instracta{{/str}}</span></button>
+        </div>
+    </header>
+
+    <div class="lb-body">
+        <aside class="lb-left" aria-label="{{#str}}b_sections, theme_instracta{{/str}}">
+            <div class="lb-tabs" role="tablist">
+                <button type="button" role="tab" class="is-active" aria-selected="true" data-action="tab" data-tab="sections">{{#str}}b_sections, theme_instracta{{/str}}</button>
+                <button type="button" role="tab" aria-selected="false" data-action="tab" data-tab="add">{{#str}}b_add, theme_instracta{{/str}}</button>
+                <button type="button" role="tab" aria-selected="false" data-action="tab" data-tab="history">{{#str}}b_history, theme_instracta{{/str}}</button>
+            </div>
+            <div class="lb-panel" data-panel="sections" role="tabpanel"></div>
+            <div class="lb-panel" data-panel="add" role="tabpanel" hidden></div>
+            <div class="lb-panel" data-panel="history" role="tabpanel" hidden></div>
+        </aside>
+
+        <main class="lb-stage" data-region="stage">
+            <div class="lb-frame-wrap" data-region="framewrap" data-device="desktop">
+                <iframe data-region="preview" src="{{{ previewurl }}}" title="{{#str}}b_preview, theme_instracta{{/str}}"></iframe>
+            </div>
+        </main>
+
+        <aside class="lb-right" data-region="inspector" aria-label="{{#str}}b_inspector, theme_instracta{{/str}}"></aside>
+    </div>
+
+    <div class="lb-modal" data-region="modal" hidden></div>
+    <div class="lb-toasts" data-region="toasts" aria-live="polite"></div>
+</div>

@@ -1,0 +1,37 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_instracta/sections/video
+
+    Instracta page builder template.
+
+    Example context (json):
+    {}
+}}
+{{#hashead}}<header class="instracta-head instracta-head--center">{{> theme_instracta/sections/partial_head }}</header>{{/hashead}}
+{{#hasvideo}}
+<div class="instracta-video instracta-ratio--{{ratio}}">
+    {{#isfile}}<video controls preload="metadata"{{#hasposter}} poster="{{poster}}"{{/hasposter}}><source src="{{embed}}"></video>{{/isfile}}
+    {{#direct}}<iframe src="{{embed}}" title="{{title}}" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>{{/direct}}
+    {{#deferred}}
+    <button type="button" class="instracta-video__poster" data-instracta-embed="{{embed}}" data-instracta-title="{{title}}" style="background-image: url('{{poster}}')" aria-label="{{#str}}playvideo, theme_instracta{{/str}}">
+        <span class="instracta-video__play"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
+    </button>
+    {{/deferred}}
+</div>
+{{/hasvideo}}
+{{^hasvideo}}<p class="instracta-empty">{{#str}}b_addvideo, theme_instracta{{/str}}</p>{{/hasvideo}}

@@ -1,0 +1,601 @@
+// Course presentation 2.0: immersive header, tiled sections, rich activity rows and modern cards.
+// Sits on top of the layout choices in _courses.scss so every layout and setting still works.
+
+// ---- Header: glass chips, large type, progress panel ------------------------------------------
+.instracta-cbanner {
+    box-shadow: var(--instracta-shadow-lg);
+    border: 1px solid rgba(255, 255, 255, .08);
+
+    &__media::after {
+        background:
+            radial-gradient(60rem 28rem at 0% 0%, rgba(var(--instracta-primary-rgb), .55), transparent 70%),
+            linear-gradient(100deg, rgba(5, 14, 32, .94) 0%, rgba(5, 14, 32, .78) 50%, rgba(5, 14, 32, .4) 100%);
+    }
+
+    &__body {
+        padding: clamp(1.75rem, 5vw, 3.5rem);
+        gap: 1rem;
+    }
+
+    &__crumb a {
+        display: inline-block;
+        padding: .3rem .8rem;
+        border-radius: 999px;
+        background: rgba(var(--instracta-accent-rgb, 232, 164, 77), .16);
+        border: 1px solid rgba(232, 164, 77, .45);
+        color: #f6c987;
+        font-size: .75rem;
+        letter-spacing: .1em;
+    }
+
+    &__title {
+        font-size: clamp(2rem, 4.6vw, 3.4rem);
+        line-height: 1.05;
+        letter-spacing: -.035em;
+        text-wrap: balance;
+    }
+
+    &__summary {
+        font-size: 1.125rem;
+        color: rgba(255, 255, 255, .86);
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    &__meta li {
+        padding: .35rem .8rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, .1);
+        border: 1px solid rgba(255, 255, 255, .16);
+        backdrop-filter: blur(6px);
+        color: #fff;
+    }
+
+    &__progress {
+        max-width: 30rem;
+        padding: .8rem 1rem;
+        border-radius: var(--instracta-r-lg);
+        background: rgba(255, 255, 255, .1);
+        border: 1px solid rgba(255, 255, 255, .16);
+        backdrop-filter: blur(6px);
+        color: #fff;
+
+        .progress {
+            height: .55rem;
+            border-radius: 999px;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--instracta-accent), #f6c987);
+            border-radius: 999px;
+        }
+    }
+
+    &__actions .btn {
+        padding: .7rem 1.6rem;
+        border-radius: 999px;
+        font-weight: 700;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, .3);
+    }
+}
+
+html[data-i-ch="split"] .instracta-cbanner__meta li,
+html[data-i-ch="split"] .instracta-cbanner__progress,
+html[data-i-ch="minimal"] .instracta-cbanner__meta li,
+html[data-i-ch="minimal"] .instracta-cbanner__progress {
+    background: var(--instracta-surface-2);
+    border-color: var(--instracta-border);
+    color: var(--instracta-text);
+    backdrop-filter: none;
+}
+
+html[data-i-ch="split"] .instracta-cbanner__crumb a,
+html[data-i-ch="minimal"] .instracta-cbanner__crumb a {
+    color: var(--instracta-primary);
+    background: rgba(var(--instracta-primary-rgb), .08);
+    border-color: rgba(var(--instracta-primary-rgb), .25);
+}
+
+// ---- Sections as tiles (classic layout) ---------------------------------------------------------
+html[data-i-cl="classic"] .course-content {
+    .section-list > li.course-section {
+        margin-bottom: 1.25rem;
+        padding: 1.25rem 1.5rem 1rem;
+        background: var(--instracta-surface);
+        border: 1px solid var(--instracta-border);
+        border-radius: var(--instracta-r-xl);
+        box-shadow: var(--instracta-shadow-sm);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .section-list > li.course-section > .section-item,
+    .section-list > li.course-section .section-item.card {
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .section-list > li.course-section:not(#section-0)::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(var(--instracta-accent), var(--instracta-primary));
+    }
+
+    .section-list > li.course-section:not(#section-0) .course-section-header .sectionname::before {
+        content: counter(instracta-sec, decimal-leading-zero);
+        display: inline-grid;
+        place-items: center;
+        min-width: 2.25rem;
+        height: 2.25rem;
+        margin-right: .75rem;
+        border-radius: var(--instracta-r-md);
+        background: rgba(var(--instracta-primary-rgb), .08);
+        color: var(--instracta-primary);
+        font-size: .8125rem;
+        font-weight: 800;
+        letter-spacing: .04em;
+    }
+}
+
+.course-content .course-section-header .sectionname,
+.course-content .course-section-header h3 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -.02em;
+}
+
+// ---- Activity rows ------------------------------------------------------------------------------
+.course-content li.activity,
+.course-content li.activity:not(:first-child) {
+    border: 0 !important;
+}
+
+.course-content .activity-item .activity-icon.activityiconcontainer {
+    width: 2.75rem !important;
+    height: 2.75rem !important;
+    flex: 0 0 2.75rem;
+    align-self: center !important;
+    margin: 0 .9rem 0 0 !important;
+    background: rgba(var(--instracta-primary-rgb), .08) !important;
+    border-radius: var(--instracta-r-md) !important;
+    display: grid;
+    place-items: center;
+
+    img {
+        width: 1.5rem !important;
+        height: 1.5rem !important;
+    }
+}
+
+.course-content .activity-item {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    margin: .35rem 0;
+    padding: .7rem .9rem;
+    background: var(--instracta-surface-2);
+    border: 1px solid transparent;
+    border-radius: var(--instracta-r-lg);
+    transition: transform .18s var(--instracta-ease), border-color .18s, box-shadow .18s, background-color .18s;
+
+    &:hover {
+        background: var(--instracta-surface);
+        border-color: var(--instracta-border-strong);
+        box-shadow: var(--instracta-shadow-sm);
+        transform: translateX(3px);
+    }
+
+    .activity-grid {
+        flex: 1;
+        min-width: 0;
+        border: 0;
+    }
+
+    .activity-icon.activityiconcontainer,
+    .activityiconcontainer {
+        display: grid;
+        place-items: center;
+        flex: 0 0 2.75rem;
+        width: 2.75rem;
+        height: 2.75rem;
+        margin: 0;
+        border: 0;
+        border-radius: var(--instracta-r-md);
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .04);
+
+        img,
+        .activityicon {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    }
+
+    .activityname a,
+    .instancename {
+        font-weight: 650;
+        color: var(--instracta-heading);
+    }
+
+    .activity-completion .btn,
+    .completion-dropdown .btn {
+        border-radius: 999px;
+    }
+
+    .badge {
+        border-radius: 999px;
+        font-weight: 600;
+    }
+}
+
+// ---- Course cards (My courses, dashboard, home) --------------------------------------------------
+.card.course-card {
+    border-radius: var(--instracta-r-xl);
+    border: 1px solid var(--instracta-border);
+    background: var(--instracta-surface);
+    box-shadow: var(--instracta-shadow-sm);
+
+    .card-img-top {
+        height: 9.5rem !important;
+        object-fit: cover;
+    }
+
+    .card-body {
+        padding: 1rem 1.15rem 1.1rem;
+    }
+
+    .coursename,
+    .coursename a {
+        font-weight: 750;
+        font-size: 1.0625rem;
+        line-height: 1.3;
+        color: var(--instracta-heading);
+    }
+
+    .text-muted,
+    .categoryname {
+        font-size: .8125rem;
+        letter-spacing: .02em;
+    }
+
+    .progress {
+        height: .4rem;
+        border-radius: 999px;
+        background: var(--instracta-surface-2);
+    }
+
+    .progress-bar {
+        background: linear-gradient(90deg, var(--instracta-primary), var(--instracta-accent));
+        border-radius: 999px;
+    }
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--instracta-shadow-lg);
+    }
+}
+
+// Course index tiles
+.coursebox.card,
+.coursebox {
+    transition: transform .22s var(--instracta-ease), box-shadow .22s var(--instracta-ease);
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--instracta-shadow-lg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .course-content .activity-item:hover,
+    .card.course-card:hover,
+    .coursebox:hover {
+        transform: none;
+    }
+}
+
+// Card menu: a quiet round button over the image instead of a white footer.
+.card.course-card {
+    position: relative;
+
+    .card-footer.menu {
+        position: absolute;
+        top: .6rem;
+        right: .6rem;
+        padding: 0 !important;
+        background: transparent !important;
+        border: 0;
+        z-index: 3;
+
+        .btn {
+            width: 2.1rem;
+            height: 2.1rem;
+            border-radius: 50%;
+            background: rgba(8, 14, 28, .62);
+            color: #fff;
+            backdrop-filter: blur(6px);
+        }
+    }
+}
+
+.block_myoverview .card-title,
+.block_myoverview > .card-body > h3 {
+    padding-bottom: .75rem;
+}
+
+// ---- Course index drawer: sleek rail with a pill toggle -------------------------------------------
+#theme_boost-drawers-courseindex.drawer {
+    background: var(--instracta-surface);
+    border-right: 1px solid var(--instracta-border);
+    box-shadow: none;
+
+    .drawerheader {
+        padding: .85rem 1rem .5rem;
+        border: 0;
+    }
+
+    .drawerheader .btn {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        color: var(--instracta-text-muted);
+
+        &:hover {
+            background: var(--instracta-surface-2);
+            color: var(--instracta-heading);
+        }
+    }
+
+    .drawercontent {
+        padding: 0 .75rem 1.5rem;
+    }
+}
+
+.courseindex {
+    padding: 0;
+    font-size: .9rem;
+
+    // Section titles: small caps eyebrow with a chevron.
+    .courseindex-section {
+        margin-top: .35rem;
+        border: 0;
+    }
+
+    .courseindex-section .courseindex-item.courseindex-section-title,
+    .courseindex-section > .courseindex-item {
+        padding: .45rem .5rem;
+        border-radius: var(--instracta-r-md);
+        font-weight: 700;
+        letter-spacing: .01em;
+        color: var(--instracta-heading);
+        transition: background-color .15s;
+
+        &:hover {
+            background: var(--instracta-surface-2);
+        }
+    }
+
+    .courseindex-chevron {
+        color: var(--instracta-text-muted);
+    }
+
+    // Activities hang from a thin guide line.
+    .courseindex-sectioncontent {
+        margin: .15rem 0 .4rem 1.1rem;
+        padding-left: .5rem;
+        border-left: 2px solid var(--instracta-border);
+    }
+
+    .courseindex-sectioncontent .courseindex-item {
+        position: relative;
+        padding: .4rem .65rem;
+        border-radius: var(--instracta-r-md);
+        font-weight: 500;
+        color: var(--instracta-text);
+        transition: background-color .15s, color .15s;
+
+        &:hover {
+            background: var(--instracta-surface-2);
+        }
+
+        &.pageitem {
+            background: rgba(var(--instracta-primary-rgb), .1);
+            font-weight: 700;
+        }
+
+        &.pageitem::before {
+            content: "";
+            position: absolute;
+            left: -.65rem;
+            top: .35rem;
+            bottom: .35rem;
+            width: 2px;
+            border-radius: 2px;
+            background: var(--instracta-accent);
+        }
+    }
+
+    .current-badge {
+        font-size: .625rem;
+        font-weight: 700;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+        background: var(--instracta-accent) !important;
+        color: #0f172a !important;
+    }
+
+    .completioninfo {
+        transform: scale(.9);
+    }
+}
+
+// Show / hide button: a slim pill that hugs the edge of the page.
+.drawer-toggles .drawer-toggler {
+    .btn {
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0;
+        border-radius: 0 999px 999px 0;
+        border: 1px solid var(--instracta-border);
+        border-left: 0;
+        background: var(--instracta-surface);
+        color: var(--instracta-primary);
+        box-shadow: var(--instracta-shadow-md);
+        transition: width .18s var(--instracta-ease), background-color .18s, color .18s;
+
+        &:hover {
+            width: 3rem;
+            background: var(--instracta-primary);
+            color: #fff;
+        }
+    }
+
+    &.drawer-right-toggle .btn {
+        border-radius: 999px 0 0 999px;
+        border-left: 1px solid var(--instracta-border);
+        border-right: 0;
+    }
+}
+
+// ---- Use the whole screen ---------------------------------------------------------------------------
+body.path-course-view,
+body.path-mod {
+    #page.drawers .main-inner,
+    #topofscroll.main-inner,
+    #topofscroll {
+        max-width: var(--instracta-container, 1280px) !important;
+    }
+}
+
+html[data-i-cl="reading"] .course-content,
+html[data-i-cl="classic"] .course-content {
+    max-width: none;
+}
+
+// Sections: title rail on the left, activities in a responsive grid on the right.
+@media (min-width: 1100px) {
+    html[data-i-cl="reading"] .course-content .section-list > li.course-section:not(#section-0) > .section-item,
+    html[data-i-cl="reading"] .course-content .section-list > li.course-section#section-0 > .section-item {
+        display: grid;
+        grid-template-columns: minmax(13rem, 17rem) minmax(0, 1fr);
+        column-gap: 2.5rem;
+        align-items: start;
+
+        > .course-section-header {
+            position: sticky;
+            top: 5.5rem;
+            padding: 1.5rem 0 .5rem;
+        }
+
+        > .course-content-item-content,
+        > .content {
+            grid-column: 2;
+            padding-top: 1rem;
+        }
+    }
+}
+
+// Activities flow into columns instead of one long list.
+@media (min-width: 768px) {
+    html:not([data-i-cl="focus"]):not([data-i-cl="cards"]) .course-content ul.section {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fill, minmax(21rem, 1fr));
+        gap: .5rem .75rem;
+        align-items: stretch;
+
+        > li.activity {
+            margin: 0;
+        }
+
+        > li.activity.modtype_label,
+        > li.activity.hasinfo.modtype_subsection {
+            grid-column: 1 / -1;
+        }
+    }
+}
+
+// Activity pages: embeds, tables and media use the full width; prose keeps a comfortable measure.
+body.path-mod #region-main,
+body.path-mod [role="main"] {
+    max-width: none;
+}
+
+// ---- Course map (sticky section strip) ----------------------------------------------------------------
+.instracta-map {
+    position: sticky;
+    top: 4.25rem;
+    z-index: 20;
+    margin: 0 0 1.25rem;
+    padding: .5rem 0;
+    background: color-mix(in srgb, var(--instracta-surface) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--instracta-border);
+
+    &__list {
+        display: flex;
+        gap: .5rem;
+        margin: 0;
+        padding: 0 .25rem;
+        list-style: none;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    &__list::-webkit-scrollbar {
+        display: none;
+    }
+
+    &__chip {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        padding: .4rem .85rem;
+        border: 1px solid var(--instracta-border);
+        border-radius: 999px;
+        background: var(--instracta-surface);
+        color: var(--instracta-text) !important;
+        font-size: .8125rem;
+        font-weight: 600;
+        white-space: nowrap;
+        text-decoration: none !important;
+        transition: background-color .15s, border-color .15s, color .15s;
+
+        &:hover {
+            border-color: var(--instracta-primary);
+        }
+
+        &.is-current {
+            background: var(--instracta-primary);
+            border-color: var(--instracta-primary);
+            color: #fff !important;
+        }
+
+        &.is-done .instracta-map__count::before {
+            content: "\2713\00a0";
+        }
+    }
+
+    &__count {
+        padding: .05rem .45rem;
+        border-radius: 999px;
+        background: rgba(var(--instracta-primary-rgb), .1);
+        font-size: .6875rem;
+        font-weight: 700;
+    }
+
+    &__chip.is-current &__count {
+        background: rgba(255, 255, 255, .22);
+    }
+}
+
+html[data-i-cl="focus"] .instracta-map {
+    display: none;
+}

@@ -1,0 +1,225 @@
+// Reading clarity: comfortable type, measured line length and user adjustable preferences.
+// Preferences arrive as data-i-* attributes on <html> (set before first paint by the theme).
+
+body {
+    font-family: var(--instracta-font-body);
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--instracta-font-heading);
+}
+
+// Long form text: course summaries, labels, pages, books, forum posts, descriptions.
+.no-overflow,
+.text_to_html,
+.activity-description,
+.forumpost .posting {
+    :is(p, li, blockquote, dd, figcaption) {
+        font-family: var(--instracta-font-content);
+        font-size: var(--instracta-read-size);
+        line-height: var(--instracta-read-lh);
+    }
+
+    :is(p, ul, ol, blockquote, dl, h2, h3, h4, h5, h6) {
+        max-width: var(--instracta-measure);
+    }
+
+    p {
+        margin-bottom: 1.1em;
+    }
+
+    :is(h2, h3, h4) {
+        margin-top: 1.7em;
+        margin-bottom: .6em;
+    }
+
+    :is(h2) {
+        font-size: 1.5rem;
+    }
+
+    :is(h3) {
+        font-size: 1.25rem;
+    }
+
+    ul,
+    ol {
+        padding-left: 1.4em;
+    }
+
+    li + li {
+        margin-top: .35em;
+    }
+
+    blockquote {
+        margin: 1.5em 0;
+        padding: .25em 0 .25em 1.1em;
+        border-left: 3px solid var(--instracta-accent);
+        color: var(--instracta-text-muted);
+        font-style: normal;
+    }
+
+    img,
+    video,
+    iframe {
+        max-width: 100%;
+        height: auto;
+        border-radius: var(--instracta-r-md);
+    }
+
+    table {
+        --bs-table-bg: transparent;
+        border-collapse: collapse;
+        font-size: .95em;
+
+        th,
+        td {
+            padding: .6rem .8rem;
+            border: 1px solid var(--instracta-border);
+        }
+
+        th {
+            background: var(--instracta-surface-2);
+        }
+    }
+
+    code,
+    pre {
+        font-size: .9em;
+        background: var(--instracta-surface-2);
+        border-radius: var(--instracta-r-sm);
+    }
+
+    code {
+        padding: .1em .35em;
+    }
+
+    pre {
+        padding: 1rem;
+        max-width: 100%;
+        overflow: auto;
+    }
+}
+
+// Quiet the page chrome a little so text is the loudest thing.
+#region-main {
+    color: var(--instracta-text);
+}
+
+.text-muted,
+.small.text-muted,
+.dimmed_text,
+.usertext {
+    color: var(--instracta-text-muted) !important;
+}
+
+// ---- User preferences -------------------------------------------------------------------------
+
+html[data-i-size="90"] { font-size: 90%; }
+html[data-i-size="110"] { font-size: 110%; }
+html[data-i-size="120"] { font-size: 120%; }
+html[data-i-size="135"] { font-size: 135%; }
+html[data-i-size="150"] { font-size: 150%; }
+
+html[data-i-lh="relaxed"] { --instracta-read-lh: 1.9; }
+html[data-i-lh="loose"] { --instracta-read-lh: 2.1; }
+
+html[data-i-measure="narrow"] { --instracta-measure: 54ch; }
+html[data-i-measure="wide"] { --instracta-measure: 80ch; }
+html[data-i-measure="full"] { --instracta-measure: none; }
+
+// "Easy read" uses Atkinson Hyperlegible, designed for low vision and letter recognition.
+html[data-i-font="easy"] {
+    --instracta-font-body: "Instracta Atkinson", system-ui, sans-serif;
+    --instracta-font-heading: "Instracta Atkinson", system-ui, sans-serif;
+    --instracta-font-content: "Instracta Atkinson", system-ui, sans-serif;
+
+    body {
+        letter-spacing: .01em;
+    }
+}
+
+html[data-i-font="serif"] {
+    --instracta-font-content: "Instracta Source Serif", Georgia, "Times New Roman", serif;
+}
+
+html[data-i-contrast="1"] {
+    --instracta-text: #000;
+    --instracta-text-muted: #262626;
+    --instracta-heading: #000;
+    --instracta-border: #6b7280;
+    --instracta-border-strong: #111;
+    --instracta-primary: #0b2a6f;
+    --instracta-primary-rgb: 11, 42, 111;
+    --instracta-primary-hover: #061a4a;
+
+    a:not(.btn) {
+        text-decoration: underline;
+    }
+
+    :focus-visible {
+        outline-width: 4px;
+    }
+}
+
+html[data-i-contrast="1"][data-instracta-theme="dark"] {
+    --instracta-text: #fff;
+    --instracta-text-muted: #e5e7eb;
+    --instracta-heading: #fff;
+    --instracta-border: #9ca3af;
+    --instracta-border-strong: #fff;
+    --instracta-primary: #9cc2ff;
+    --instracta-primary-rgb: 156, 194, 255;
+    --instracta-primary-hover: #c7dcff;
+}
+
+html[data-i-motion="reduce"] {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .instracta-anim-fade,
+    .instracta-anim-up,
+    .instracta-anim-zoom {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+// Focus mode: just the content, in a centred column.
+html[data-i-focus="1"] {
+    .drawer,
+    .drawer-toggles,
+    .secondary-navigation,
+    #page-header .breadcrumb,
+    #page-navbar,
+    .instracta-footer,
+    #page-footer,
+    .instracta-edit-pill {
+        display: none !important;
+    }
+
+    #page.drawers,
+    #page.drawers.show-drawer-left,
+    #page.drawers.show-drawer-right {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    #page.drawers .main-inner,
+    #page-content,
+    #region-main-box {
+        max-width: calc(var(--instracta-measure, 68ch) + 6rem);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #page.drawers .main-inner {
+        max-width: 54rem;
+    }
+}

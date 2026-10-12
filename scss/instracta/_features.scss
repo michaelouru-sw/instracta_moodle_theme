@@ -1,0 +1,815 @@
+// Notices, teacher hints, activity bar, mobile bar, helpers, catalogue, landing page and static pages.
+
+// ---- Notices and hints -------------------------------------------------------------------------
+
+.instracta-notices {
+    display: grid;
+    gap: .5rem;
+    margin: 0 0 1.25rem;
+}
+
+.instracta-notice {
+    --n-bg: var(--instracta-primary-soft);
+    --n-fg: var(--instracta-heading);
+    --n-edge: var(--instracta-primary);
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .7rem 1rem;
+    border-radius: var(--instracta-r-md);
+    border: 1px solid var(--n-edge);
+    border-left-width: 4px;
+    background: var(--n-bg);
+    color: var(--n-fg);
+    font-size: .9375rem;
+
+    &--success { --n-bg: #e8f6ee; --n-fg: #14532d; --n-edge: #1f9d55; }
+    &--warning { --n-bg: #fff6e0; --n-fg: #6b4300; --n-edge: #e8a44d; }
+    &--danger { --n-bg: #fdecec; --n-fg: #7a1c1c; --n-edge: #d64545; }
+
+    a {
+        color: inherit;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    &__text {
+        flex: 1;
+    }
+
+    &__close {
+        border: 0;
+        background: transparent;
+        color: inherit;
+        opacity: .7;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 999px;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 1;
+            background: rgba(0, 0, 0, .07);
+        }
+    }
+}
+
+:root[data-instracta-theme="dark"] .instracta-notice {
+    --n-bg: rgba(var(--instracta-primary-rgb), .16);
+    --n-fg: var(--instracta-text);
+
+    &--success { --n-bg: rgba(31, 157, 85, .16); --n-fg: #b7efcc; }
+    &--warning { --n-bg: rgba(232, 164, 77, .16); --n-fg: #ffe0ac; }
+    &--danger { --n-bg: rgba(214, 69, 69, .18); --n-fg: #ffc9c9; }
+}
+
+.instracta-hints {
+    padding: .8rem 1rem;
+    border: 1px dashed var(--instracta-border-strong);
+    border-radius: var(--instracta-r-md);
+    background: var(--instracta-surface-2);
+    font-size: .875rem;
+    color: var(--instracta-text-muted);
+
+    &__title {
+        font-size: .6875rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        margin-bottom: .35rem;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: .35rem 1.25rem;
+    }
+
+    li.is-warning {
+        color: #8a5a00;
+        font-weight: 600;
+    }
+}
+
+// ---- Activity bar ------------------------------------------------------------------------------
+
+body:has(.instracta-abar) #page {
+    padding-bottom: 5.5rem;
+}
+
+.instracta-abar {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1025;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(7rem, auto) minmax(0, 1fr);
+    align-items: center;
+    gap: .75rem;
+    width: min(56rem, calc(100% - 2rem));
+    padding: .5rem .6rem;
+    border: 1px solid var(--instracta-border);
+    border-radius: 999px;
+    background: rgba(var(--instracta-surface-rgb, 255, 255, 255), .92);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--instracta-shadow-md);
+
+    &__link {
+        display: flex;
+        align-items: center;
+        gap: .6rem;
+        min-width: 0;
+        padding: .45rem .9rem;
+        border-radius: 999px;
+        color: var(--instracta-text);
+        text-decoration: none;
+        transition: background-color .15s;
+
+        &:hover {
+            background: var(--instracta-primary-soft);
+            color: var(--instracta-primary-hover);
+        }
+
+        &.is-next {
+            justify-content: flex-end;
+            text-align: right;
+        }
+
+        &.is-empty {
+            pointer-events: none;
+        }
+    }
+
+    &__text {
+        display: grid;
+        min-width: 0;
+        line-height: 1.2;
+    }
+
+    &__hint {
+        font-size: .6875rem;
+        font-weight: 700;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        color: var(--instracta-text-muted);
+    }
+
+    &__name {
+        font-weight: 600;
+        font-size: .9rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    &__mid {
+        display: grid;
+        gap: .3rem;
+        justify-items: center;
+    }
+
+    &__pos {
+        font-size: .75rem;
+        font-weight: 600;
+        color: var(--instracta-text-muted);
+        white-space: nowrap;
+    }
+
+    &__track {
+        width: 100%;
+        height: 4px;
+        border-radius: 999px;
+        background: var(--instracta-border);
+        overflow: hidden;
+    }
+
+    &__fill {
+        height: 100%;
+        background: var(--instracta-accent);
+        border-radius: 999px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .instracta-abar {
+        bottom: 4.6rem;
+        border-radius: var(--instracta-r-lg);
+        grid-template-columns: auto minmax(0, 1fr) auto;
+
+        &__text {
+            display: none;
+        }
+
+        &__link {
+            padding: .55rem .8rem;
+        }
+    }
+
+    body:not(:has(.instracta-mbar)) .instracta-abar {
+        bottom: 1rem;
+    }
+}
+
+// ---- Mobile bottom bar -------------------------------------------------------------------------
+
+.instracta-mbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1030;
+    display: flex;
+    justify-content: space-around;
+    padding: .4rem .25rem calc(.4rem + env(safe-area-inset-bottom, 0px));
+    background: var(--instracta-surface);
+    border-top: 1px solid var(--instracta-border);
+    box-shadow: 0 -8px 24px -16px rgba(15, 23, 42, .3);
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: .15rem;
+        flex: 1;
+        padding: .3rem .25rem;
+        font-size: .6875rem;
+        font-weight: 600;
+        color: var(--instracta-text-muted);
+        text-decoration: none;
+
+        i {
+            font-size: 1.15rem;
+        }
+
+        &:hover,
+        &:focus-visible {
+            color: var(--instracta-primary);
+        }
+    }
+}
+
+@media (max-width: 767.98px) {
+    body:has(.instracta-mbar) #page {
+        padding-bottom: 4.5rem;
+    }
+
+    body:has(.instracta-mbar) .instracta-top {
+        bottom: 9.5rem;
+    }
+}
+
+// ---- Small helpers -----------------------------------------------------------------------------
+
+.instracta-top {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 5.5rem;
+    z-index: 1024;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--instracta-border);
+    border-radius: 999px;
+    background: var(--instracta-surface);
+    color: var(--instracta-primary);
+    box-shadow: var(--instracta-shadow-md);
+    cursor: pointer;
+
+    &:hover {
+        background: var(--instracta-primary);
+        color: var(--instracta-on-primary);
+    }
+
+    &[hidden] {
+        display: none;
+    }
+}
+
+.instracta-readbar {
+    position: fixed;
+    top: var(--instracta-nav-height);
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 1031;
+    pointer-events: none;
+
+    &[hidden] {
+        display: none;
+    }
+
+    &__fill {
+        height: 100%;
+        width: 0;
+        background: var(--instracta-accent);
+    }
+}
+
+.instracta-readtime {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    margin: 0 0 1rem;
+    padding: .25rem .7rem;
+    border-radius: 999px;
+    background: var(--instracta-surface-2);
+    color: var(--instracta-text-muted);
+    font-size: .8125rem;
+    font-weight: 600;
+}
+
+a.instracta-ext::after {
+    content: "\2197";
+    margin-left: .15em;
+    font-size: .8em;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.instracta-cookie {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 1040;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 30rem;
+    padding: .9rem 1rem;
+    border: 1px solid var(--instracta-border);
+    border-radius: var(--instracta-r-lg);
+    background: var(--instracta-surface);
+    box-shadow: var(--instracta-shadow-lg);
+    font-size: .875rem;
+
+    &[hidden] {
+        display: none;
+    }
+}
+
+// ---- Catalogue ---------------------------------------------------------------------------------
+
+.instracta-cat {
+    &__bar {
+        display: grid;
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr) minmax(0, 1fr) auto;
+        gap: .6rem;
+        margin-bottom: 1rem;
+    }
+
+    &__meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        color: var(--instracta-text-muted);
+        font-size: .875rem;
+    }
+
+    &__views {
+        display: inline-flex;
+        gap: .25rem;
+
+        a {
+            display: grid;
+            place-items: center;
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: var(--instracta-r-md);
+            color: var(--instracta-text-muted);
+            text-decoration: none;
+
+            &.is-active,
+            &:hover {
+                background: var(--instracta-primary-soft);
+                color: var(--instracta-primary);
+            }
+        }
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+        gap: 1.25rem;
+
+        &.is-list {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__empty {
+        padding: 3rem 1rem;
+        text-align: center;
+        color: var(--instracta-text-muted);
+        border: 1px dashed var(--instracta-border-strong);
+        border-radius: var(--instracta-r-lg);
+    }
+}
+
+@media (max-width: 767.98px) {
+    .instracta-cat__bar {
+        grid-template-columns: 1fr;
+    }
+}
+
+.instracta-ccard {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--instracta-border);
+    border-radius: var(--instracta-r-lg);
+    background: var(--instracta-surface);
+    transition: transform .2s var(--instracta-ease), box-shadow .2s var(--instracta-ease), border-color .2s;
+
+    &:hover {
+        transform: translateY(-2px);
+        border-color: var(--instracta-border-strong);
+        box-shadow: var(--instracta-shadow-md);
+    }
+
+    &__media {
+        display: block;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background: var(--instracta-surface-2);
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+        flex: 1;
+        padding: 1rem 1.1rem 1.1rem;
+    }
+
+    &__cat {
+        font-size: .6875rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: var(--instracta-accent);
+    }
+
+    &__title {
+        margin: 0;
+        font-size: 1.0625rem;
+
+        a {
+            color: var(--instracta-heading);
+            text-decoration: none;
+
+            &:hover {
+                color: var(--instracta-primary);
+            }
+        }
+    }
+
+    &__text {
+        margin: 0;
+        color: var(--instracta-text-muted);
+        font-size: .9rem;
+        line-height: 1.55;
+    }
+
+    &__meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .25rem 1rem;
+        font-size: .8125rem;
+        color: var(--instracta-text-muted);
+
+        i {
+            margin-right: .35rem;
+        }
+    }
+
+    &__foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: .75rem;
+        margin-top: auto;
+        padding-top: .75rem;
+        border-top: 1px solid var(--instracta-border);
+    }
+
+    &__price {
+        font-weight: 800;
+        color: var(--instracta-heading);
+    }
+}
+
+.instracta-cat__grid.is-list .instracta-ccard {
+    flex-direction: row;
+
+    .instracta-ccard__media {
+        flex: 0 0 15rem;
+        aspect-ratio: auto;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .instracta-cat__grid.is-list .instracta-ccard {
+        flex-direction: column;
+
+        .instracta-ccard__media {
+            flex-basis: auto;
+            aspect-ratio: 16 / 9;
+        }
+    }
+}
+
+// ---- Course landing page -----------------------------------------------------------------------
+
+.instracta-land {
+    &__hero {
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--instracta-r-xl);
+        background: var(--instracta-dark-bg);
+        color: #fff;
+        margin-bottom: 2rem;
+    }
+
+    &__media {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: .35;
+    }
+
+    &__hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(100deg, var(--instracta-dark-bg) 15%, rgba(5, 20, 40, .35) 100%);
+    }
+
+    &__heroin {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        gap: .75rem;
+        padding: clamp(1.5rem, 4vw, 3rem);
+        max-width: 48rem;
+    }
+
+    &__back,
+    &__cat {
+        color: rgba(255, 255, 255, .8);
+        text-decoration: none;
+        font-size: .875rem;
+        font-weight: 600;
+
+        &:hover {
+            color: #fff;
+        }
+
+        i {
+            margin-right: .4rem;
+        }
+    }
+
+    &__cat {
+        color: var(--instracta-accent);
+        text-transform: uppercase;
+        letter-spacing: .1em;
+        font-size: .75rem;
+        font-weight: 700;
+    }
+
+    &__title {
+        margin: 0;
+        color: #fff;
+        font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+        font-weight: 800;
+        line-height: 1.12;
+    }
+
+    &__facts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .4rem 1.5rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-size: .9rem;
+        color: rgba(255, 255, 255, .85);
+
+        i {
+            margin-right: .45rem;
+        }
+    }
+
+    &__cols {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 20rem;
+        gap: 2rem;
+        align-items: start;
+    }
+
+    &__main {
+        min-width: 0;
+        max-width: var(--instracta-measure-wide, 46rem);
+    }
+
+    &__sec {
+        margin-bottom: 2.25rem;
+
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: .9rem;
+        }
+    }
+
+    &__summary {
+        font-size: var(--instracta-read-size, 1.0625rem);
+        line-height: var(--instracta-read-lh, 1.7);
+    }
+
+    &__syl {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        border: 1px solid var(--instracta-border);
+        border-radius: var(--instracta-r-lg);
+        overflow: hidden;
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: .9rem;
+            padding: .85rem 1.1rem;
+            background: var(--instracta-surface);
+
+            + li {
+                border-top: 1px solid var(--instracta-border);
+            }
+        }
+    }
+
+    &__num {
+        display: grid;
+        place-items: center;
+        flex: 0 0 1.9rem;
+        height: 1.9rem;
+        border-radius: 999px;
+        background: var(--instracta-primary-soft);
+        color: var(--instracta-primary);
+        font-size: .8125rem;
+        font-weight: 700;
+    }
+
+    &__sname {
+        flex: 1;
+        font-weight: 600;
+    }
+
+    &__scount {
+        font-size: .8125rem;
+        color: var(--instracta-text-muted);
+    }
+
+    &__teachers {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .75rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            display: grid;
+            padding: .7rem 1rem;
+            border: 1px solid var(--instracta-border);
+            border-radius: var(--instracta-r-md);
+
+            span {
+                font-size: .8125rem;
+                color: var(--instracta-text-muted);
+            }
+        }
+    }
+
+    &__side {
+        position: sticky;
+        top: calc(var(--instracta-nav-height) + 1rem);
+    }
+
+    &__card {
+        display: grid;
+        gap: 1rem;
+        padding: 1.4rem;
+        border: 1px solid var(--instracta-border);
+        border-radius: var(--instracta-r-lg);
+        background: var(--instracta-surface);
+        box-shadow: var(--instracta-shadow-md);
+    }
+
+    &__price {
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: var(--instracta-heading);
+    }
+
+    &__incl {
+        display: grid;
+        gap: .55rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-size: .875rem;
+        color: var(--instracta-text-muted);
+
+        i {
+            width: 1.4rem;
+            color: var(--instracta-primary);
+        }
+    }
+}
+
+@media (max-width: 991.98px) {
+    .instracta-land__cols {
+        grid-template-columns: 1fr;
+    }
+
+    .instracta-land__side {
+        position: static;
+        order: -1;
+    }
+}
+
+// ---- Static pages ------------------------------------------------------------------------------
+
+.instracta-static {
+    max-width: var(--instracta-measure, 68ch);
+    font-size: var(--instracta-read-size, 1.0625rem);
+    line-height: var(--instracta-read-lh, 1.7);
+}
+
+body.instracta-landing #page-header {
+    display: none;
+}
+
+.instracta-cookie .btn {
+    white-space: nowrap;
+}
+
+// Messaging page and drawer follow the colour mode.
+.message-app,
+.message-app.main.bg-light,
+.messaging-area-container,
+[data-region="message-drawer"] {
+    background: var(--instracta-surface) !important;
+    color: var(--instracta-text);
+    border-color: var(--instracta-border) !important;
+
+    .bg-light,
+    .bg-white {
+        background: var(--instracta-surface) !important;
+    }
+
+    .list-group-item,
+    .border-bottom {
+        border-color: var(--instracta-border) !important;
+    }
+
+    .text-muted,
+    .small {
+        color: var(--instracta-text-muted) !important;
+    }
+}
+
+.message-app {
+    border-radius: var(--instracta-r-lg);
+    overflow: hidden;
+}
+
+// Secondary text must stay readable in both colour modes.
+.categoryname,
+.course-card .categoryname,
+.dashboard-card .categoryname {
+    color: var(--instracta-text-muted) !important;
+}
+
+// Activity header (description, dates, completion) follows the colour mode.
+.activity-header,
+.activity-information,
+.course-description-item {
+    background: var(--instracta-surface-2) !important;
+    color: var(--instracta-text);
+    border-color: var(--instracta-border);
+    border-radius: var(--instracta-r-md);
+}
